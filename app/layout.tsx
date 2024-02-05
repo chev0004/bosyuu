@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-import { Rokkitt } from 'next/font/google';
 import './globals.css';
+import type { Metadata } from 'next';
 import Navbar from './components/Navbar';
+import { Rokkitt } from 'next/font/google';
 
 const rokkitt = Rokkitt({ subsets: ['latin'] });
 

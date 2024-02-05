@@ -4,9 +4,10 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <nav className='bg-main'>
-            <Link href='/'>Home</Link>
-            <Link href='/friends'>friends</Link>
+        <nav className='bg-main text-center flex justify-around '>
+            <Link href='/' className='m-4'>
+                Home
+            </Link>
         </nav>
     );
 };

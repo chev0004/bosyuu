@@ -17,7 +17,7 @@ export type VictimRequestBody = {
     }>;
 };
 
-export const POST = async (req: VictimRequestBody) => {
+export const POST = async (req: Request) => {
     try {
         const victimData = await req.json();
         await connect();
