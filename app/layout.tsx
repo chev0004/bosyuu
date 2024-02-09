@@ -19,7 +19,7 @@ const RootLayout = ({
     return (
         <html lang='en'>
             <AuthProvider>
-                <body className={rokkitt.className}>
+                <body className={`${rokkitt.className} bg-back`}>
                     <Navbar />
                     {children}
                 </body>

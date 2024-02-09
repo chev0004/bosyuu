@@ -11,6 +11,9 @@ const config: Config = {
         extend: {
             colors: {
                 main: '#c1d5e9',
+                back: '#1a1b1c',
+                darkMain: '#111112',
+                discordBlue: '#5964f2'
             },
         },
     },

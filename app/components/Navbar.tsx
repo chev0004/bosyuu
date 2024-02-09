@@ -1,27 +1,54 @@
 'use client';
 
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import { signOut, signIn, useSession } from 'next-auth/react';
-// import { getServerSession } from 'next-auth';
+import Image from 'next/image';
 import React from 'react';
 
 const Navbar = () => {
     const { data: session, status } = useSession();
-    // const session = await getServerSession(authOptions);
-    // session ? console.log(session) : console.log('no session');
+
+    if (status == 'loading') {
+        return (
+            <nav className='bg-darkMain h-16 relative flex items-center'></nav>
+        );
+    }
 
     if (status == 'authenticated') {
-        console.log(session, 'amongus');
         return (
-            <nav className='bg-main text-center flex justify-around '>
-                <button onClick={() => signOut()}>Sign out</button>
+            <nav className='bg-darkMain h-16 relative flex items-center'>
+                <div className='w-32 flex justify-around absolute right-4'>
+                    <button
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                        className='text-red-500'
+                    >
+                        Logout
+                    </button>
+                    <Image
+                        src={session.user?.image as string}
+                        alt='icon'
+                        width={40}
+                        height={40}
+                        className='rounded-full'
+                    />
+                </div>
             </nav>
         );
     }
 
     return (
-        <nav className='bg-main text-center flex justify-around '>
-            <button onClick={() => signIn('discord')}>Sign in </button>
+        <nav className='bg-darkMain h-16 relative flex items-center'>
+            {/* <button onClick={() => signIn('discord', { callbackUrl: '/' })}>
+                Sign in{' '}
+            </button> */}
+
+            <div className='w-32 flex justify-around absolute right-4'>
+                <button
+                    onClick={() => signIn('discord', { callbackUrl: '/' })}
+                    className='text-white'
+                >
+                    Login with Discord
+                </button>
+            </div>
         </nav>
     );
 };

@@ -21,7 +21,6 @@ export const authOptions = {
                     expiresIn: '1d',
                 }
             );
-
             //create user through post request
             const res = await fetch('http://localhost:3000/api/victims', {
                 method: 'POST',

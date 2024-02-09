@@ -1,3 +1,5 @@
+import connect from '@/libs/mongo';
+import Victim from '@/schemas/victims';
 import Image from 'next/image';
 import React from 'react';
 
@@ -15,56 +17,49 @@ type victim = {
 
 const Home = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/victims/', {
-            cache: 'no-store',
-        });
-        if (!response.ok) {
-            throw new Error('something went wrong');
-        }
-        const data = await response.json();
+        await connect();
+        const victims = await Victim.find();
 
-        //sort victims
-        const sorted = data.victims.sort(
+        //sort victims by most recent timestamp
+        const sorted = victims.sort(
             (a: { timestamp: number }, b: { timestamp: number }) =>
                 b.timestamp - a.timestamp
         );
 
-        //format timestamp
-        data.victims.forEach((v: { timestamp: any }) => {
-            v.timestamp = formatTimestamp(v.timestamp);
-        });
+        return <p>a</p>
 
-        return (
-            //display victim data
-            <div className='gap-4 grid grid-cols-4'>
-                {sorted.map((victim: victim) => (
-                    <div
-                        key={victim.userid}
-                        className='bg-slate-400 border-red-500 border-2 p-4'
-                    >
-                        <Image
-                            src={victim.icon}
-                            alt='icon'
-                            width={64}
-                            height={64}
-                        />
-                        <p>userid: {victim.userid}</p>
-                        <p>displayname: {victim.displayname}</p>
-                        <p>username: {victim.username}</p>
-                        <p>discrim: {victim.discrim}</p>
-                        <p>tags: {victim.tags}</p>
-                        <p>description: {victim.description}</p>
-                        <p>valid: {victim.valid ? 'true' : 'false'}</p>
-                        <p>timestamp: {victim.timestamp}</p>
-                    </div>
-                ))}
-            </div>
-        );
+        // return (
+        //     //display victim data
+        //     <div className='gap-4 grid grid-cols-4'>
+        //         {sorted.map((victim: victim) => (
+        //             <div
+        //                 key={victim.userid}
+        //                 className='bg-slate-400 border-red-500 border-2 p-4'
+        //             >
+        //                 <Image
+        //                     src={victim.icon}
+        //                     alt='icon'
+        //                     width={64}
+        //                     height={64}
+        //                 />
+        //                 <p>userid: {victim.userid}</p>
+        //                 <p>displayname: {victim.displayname}</p>
+        //                 <p>username: {victim.username}</p>
+        //                 <p>discrim: {victim.discrim}</p>
+        //                 <p>tags: {victim.tags}</p>
+        //                 <p>description: {victim.description}</p>
+        //                 <p>valid: {victim.valid ? 'true' : 'false'}</p>
+        //                 <p>timestamp: {formatTimestamp(victim.timestamp)}</p>
+        //             </div>
+        //         ))}
+        //     </div>
+        // );
     } catch (error) {
         console.error('something went wrong:', error);
     }
 };
 
+//translate miliseconds so you humans can read it
 const formatTimestamp = (timestamp: number) => {
     const now = Date.now();
     const secondsAgo = Math.floor((now - timestamp) / 1000);

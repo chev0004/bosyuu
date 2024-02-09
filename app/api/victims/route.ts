@@ -36,6 +36,7 @@ export const POST = async (req: Request) => {
             );
         }
     } catch (error) {
+        console.log(error);
         return NextResponse.json(
             { message: 'loud incorrect buzzer' },
             { status: 422 }
@@ -43,12 +44,12 @@ export const POST = async (req: Request) => {
     }
 };
 
-export const GET = async () => {
-    try {
-        await connect();
-        const victims = await Victim.find();
-        return NextResponse.json({ victims }, { status: 200 });
-    } catch (error) {
-        console.log('something went wrong (idk what it is) ', error);
-    }
-};
+// export const GET = async () => {
+//     try {
+//         await connect();
+//         const victims = await Victim.find();
+//         return NextResponse.json({ victims }, { status: 200 });
+//     } catch (error) {
+//         console.log('something went wrong (idk what it is) ', error);
+//     }
+// };
