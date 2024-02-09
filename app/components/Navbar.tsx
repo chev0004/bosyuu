@@ -1,30 +1,25 @@
 'use client';
 
-import { signOut, signIn, useSession } from 'next-auth/react';
+import { signOut, signIn } from 'next-auth/react';
+import { Rokkitt } from 'next/font/google';
 import Image from 'next/image';
 import React from 'react';
 
-const Navbar = () => {
-    const { data: session, status } = useSession();
+const rokkitt = Rokkitt({ subsets: ['latin'] });
 
-    if (status == 'loading') {
-        return (
-            <nav className='bg-darkMain h-16 relative flex items-center'></nav>
-        );
-    }
-
-    if (status == 'authenticated') {
+const Navbar = (props: any) => {
+    if (props.icon) {
         return (
             <nav className='bg-darkMain h-16 relative flex items-center'>
                 <div className='w-32 flex justify-around absolute right-4'>
                     <button
                         onClick={() => signOut({ callbackUrl: '/' })}
-                        className='text-red-500'
+                        className={`text-red-500 rokkitt ${rokkitt.className}`}
                     >
                         Logout
                     </button>
                     <Image
-                        src={session.user?.image as string}
+                        src={props.icon}
                         alt='icon'
                         width={40}
                         height={40}
@@ -37,14 +32,10 @@ const Navbar = () => {
 
     return (
         <nav className='bg-darkMain h-16 relative flex items-center'>
-            {/* <button onClick={() => signIn('discord', { callbackUrl: '/' })}>
-                Sign in{' '}
-            </button> */}
-
             <div className='w-32 flex justify-around absolute right-4'>
                 <button
                     onClick={() => signIn('discord', { callbackUrl: '/' })}
-                    className='text-white'
+                    className={`text-white ${rokkitt.className}`}
                 >
                     Login with Discord
                 </button>

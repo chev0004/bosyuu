@@ -26,7 +26,7 @@ const Home = async () => {
                 b.timestamp - a.timestamp
         );
 
-        return <p>a</p>
+        return <p>a</p>;
 
         // return (
         //     //display victim data
