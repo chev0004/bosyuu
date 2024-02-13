@@ -40,6 +40,7 @@ export const authOptions = {
                     timestamp: Date.now(),
                     email: profile.email,
                     locale: profile.locale,
+                    gender: '3',
                 }),
             });
 

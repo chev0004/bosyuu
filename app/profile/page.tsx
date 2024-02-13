@@ -19,17 +19,6 @@ const profile = async () => {
     return (
         <div>
             <Profile victim={victimData} sex={sex} />
-            {/* <form action={sex}>
-                <input
-                    name='description'
-                    placeholder={victimData.description}
-                    autoComplete='off'
-                    className=' bg-blue-300 opacity-40 rounded-md focus:ring-0 focus:outline-none focus:opacity-100 focus'
-                />
-                <button type='submit' className='btn btn-primary btn-sm ml-2 '>
-                    set description
-                </button>
-            </form> */}
         </div>
     );
 };

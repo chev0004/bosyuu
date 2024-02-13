@@ -18,13 +18,18 @@ const Navbar = (props: any) => {
                     >
                         Logout
                     </button>
-                    <Image
-                        src={props.icon}
-                        alt='icon'
-                        width={40}
-                        height={40}
-                        className='rounded-full'
-                    />
+                    <a
+                        className='rounded-full hover:cursor-pointer'
+                        href='/profile'
+                    >
+                        <Image
+                            src={props.icon}
+                            alt='icon'
+                            width={40}
+                            height={40}
+                            className='rounded-full'
+                        />
+                    </a>
                 </div>
             </nav>
         );

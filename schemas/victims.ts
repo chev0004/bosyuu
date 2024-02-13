@@ -12,6 +12,7 @@ const victimSchema = new Schema({
     timestamp: Number,
     email: String,
     locale: String,
+    gender: String,
 });
 
 const Victim = models.victim || amongus.model('victim', victimSchema);
