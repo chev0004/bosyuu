@@ -3,6 +3,7 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Updated from './Updated';
 
 function Profile(props: any) {
     const { victim } = props;
@@ -60,8 +61,48 @@ function Profile(props: any) {
         setTags(updatedTags);
     };
 
+    const [loading, setLoading] = useState(false);
+    const [popup, setPopup] = useState(false);
+
+    const handleSubmit = async (event: any) => {
+        event.preventDefault();
+
+        setLoading(true);
+
+        const formData = {
+            description: description,
+            tags: tags,
+            gender: gender,
+        };
+
+        await new Promise((resolve: any) => {
+            setTimeout(() => {
+                setLoading(false);
+                resolve();
+            }, 1000);
+        });
+
+        switch (true) {
+            case tags.length > 6:
+                setLoading(false);
+                return setError('You can only have 6 tags.');
+            case !description:
+                setLoading(false);
+                return setError('You must have a description.');
+        }
+
+        props.sex(formData);
+
+        setError('');
+        setPopup(true);
+        setTimeout(() => {
+            setPopup(false);
+        }, 4000);
+    };
+
     return (
         <div className='flex items-center justify-center py-20 px-11 gap-8'>
+            {/* <Updated /> */}
             <div
                 key={victim.userid}
                 className='bg-darkMain rounded-md text-white overflow-hidden relative h-fit w-[400px]'
@@ -155,7 +196,19 @@ function Profile(props: any) {
                     </div>
                 </div>
             </div>
-            <form className='bg-darkMain flex justify-center p-4 w-[900px] h-[455px] flex-wrap rounded-md relative'>
+            <form
+                className='bg-darkMain flex justify-center p-4 w-[900px] h-[455px] flex-wrap rounded-md relative'
+                onSubmit={handleSubmit}
+            >
+                <div
+                    className={`bg-discordBlue absolute z-10 w-40 h-8 text-white flex justify-center items-center ${
+                        popup
+                            ? 'opacity-100 -top-[40px]'
+                            : 'opacity-0 -top-[64px]'
+                    } transition-max-height duration-500`}
+                >
+                    <p>Profile updated!</p>
+                </div>
                 {error && (
                     <div className='bg-red-500 absolute w-full rounded-md text-center -top-[24px] text-white'>
                         {error}
@@ -194,8 +247,8 @@ function Profile(props: any) {
                         className='bg-darkerMain mt-1 font-sans font-light text-sm rounded-md focus:ring-0 focus:outline-none h-9 w-full p-4 text-white'
                     />
                 </div>
-                <div className='w-full h-80 mt-4'>
-                    <div className='bg-darkerMain mt-1 rounded-md focus:ring-0 h-36 w-full px-2 pb-5 relative'>
+                <div className='w-full h-fit'>
+                    <div className='bg-darkerMain mt-1 rounded-md focus:ring-0 h-36 w-full pb-4 relative'>
                         <textarea
                             placeholder='Enter profile description'
                             defaultValue={description}
@@ -203,11 +256,11 @@ function Profile(props: any) {
                                 setDescription(e.target.value);
                             }}
                             autoComplete='off'
-                            maxLength={504}
+                            maxLength={604}
                             className='bg-darkerMain text-wrap mt-1 resize-none font-sans font-light text-sm rounded-md focus:ring-0 focus:outline-none h-full w-full p-2 text-white text-start'
                         />
-                        <p className='text-gray-400 font-sans font-light justify-end text-[0.74rem] absolute bottom-1 right-2'>
-                            {description.length}/504
+                        <p className='text-gray-400 font-sans font-light justify-end text-[0.74rem] absolute -bottom-5 right-2'>
+                            {description.length}/604
                         </p>
                     </div>
                     <div className='flex justify-center flex-col mt-5 w-fit bg-darkerMain px-4 pb-4 pt-1 rounded-md '>
@@ -277,6 +330,19 @@ function Profile(props: any) {
                             </div>
                         </label>
                     </div>
+                </div>
+                <div className='flex justify-end w-full pr-4 pb-4'>
+                    <button
+                        className={
+                            loading
+                                ? 'cursor-not-allowed opacity-50 w-28 h-8 text-black bg-white rounded-md p-2 text-[0.8rem] font-sans font-light'
+                                : 'w-28 h-8 text-black bg-white rounded-md p-2 text-[0.8rem] font-sans font-light hover:opacity-90'
+                        }
+                        type='submit'
+                        disabled={loading}
+                    >
+                        {loading ? 'Updating....' : 'Update profile'}
+                    </button>
                 </div>
             </form>
         </div>

@@ -3,7 +3,7 @@ import Victim from '@/schemas/victims';
 import Image from 'next/image';
 import React from 'react';
 
-type victim = {
+interface victim {
     userid: string;
     displayname: string;
     username: string;
@@ -13,7 +13,8 @@ type victim = {
     icon: string;
     valid: boolean;
     timestamp: number;
-};
+    gender: string;
+}
 
 const Home = async () => {
     try {
@@ -126,7 +127,15 @@ const Home = async () => {
                                 className='bg-darkMain rounded-md text-white overflow-hidden relative'
                             >
                                 {/* gender banner */}
-                                <div className='h-16 bg-main'></div>
+                                <div
+                                    className={`h-16 ${
+                                        victim.gender == '1'
+                                            ? 'bg-main'
+                                            : victim.gender === '2'
+                                            ? 'bg-pink-300'
+                                            : 'bg-lightMain'
+                                    }`}
+                                ></div>
 
                                 {/* icon */}
                                 <div className='bg-darkMain w-[74px] h-[74px] flex items-center justify-center rounded-full top-6 left-2 absolute'>
