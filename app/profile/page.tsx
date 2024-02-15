@@ -19,9 +19,8 @@ const profile = async () => {
     );
     const victimData = (await res.json()).victim;
 
-    const sex = async (formData: FormData) => {
+    const updateProfile = async (formData: FormData) => {
         'use server';
-        console.log(formData);
 
         const {
             description: description,
@@ -37,9 +36,22 @@ const profile = async () => {
         });
     };
 
+    const bumpProfile = async () => {
+        'use server';
+        await connect();
+        await Victim.findByIdAndUpdate(victimData._id, {
+            timestamp: Date.now(),
+            cooldown: Date.now(),
+        });
+    };
+
     return (
         <div>
-            <Profile victim={victimData} sex={sex} />
+            <Profile
+                victim={victimData}
+                updateProfile={updateProfile}
+                bumpProfile={bumpProfile}
+            />
         </div>
     );
 };

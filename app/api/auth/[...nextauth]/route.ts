@@ -41,6 +41,7 @@ export const authOptions = {
                     email: profile.email,
                     locale: profile.locale,
                     gender: '3',
+                    cooldown: Date.now(),
                 }),
             });
 

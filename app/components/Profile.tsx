@@ -91,7 +91,7 @@ function Profile(props: any) {
                 return setError('You must have a description.');
         }
 
-        props.sex(formData);
+        props.updateProfile(formData);
 
         setError('');
         setPopup(true);
@@ -99,6 +99,70 @@ function Profile(props: any) {
             setPopup(false);
         }, 4000);
     };
+
+    const calculateRemainingTime = (cooldownTime: number) => {
+        const currentTime = new Date().getTime();
+        return Math.max(0, cooldownTime - currentTime);
+    };
+
+    const [bumping, setBumping] = useState(false);
+    const [bumpPopup, setBumpPopup] = useState(false);
+    const [bumpCooldown, setBumpCooldown] = useState(victim.cooldown);
+    const [remainingTime, setRemainingTime] = useState(
+        calculateRemainingTime(bumpCooldown)
+    );
+
+    const cooldownTime = 12 * 60 * 60 * 1000; //12 hours
+
+    const initialRemaining = calculateRemainingTime(bumpCooldown);
+
+    useEffect(() => {
+        setBumpCooldown(bumpCooldown + cooldownTime);
+    }, []);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            const remaining = calculateRemainingTime(bumpCooldown);
+            setRemainingTime(remaining);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [bumpCooldown]);
+
+    const handleBump = async (event: any) => {
+        event.preventDefault();
+        setBumping(true);
+
+        await new Promise((resolve: any) => {
+            setTimeout(() => {
+                setBumping(false);
+                resolve();
+            }, 2000);
+        });
+
+        setBumpPopup(true);
+        setBumpCooldown(Date.now() + cooldownTime);
+
+        switch (true) {
+            case remainingTime > 0:
+                setBumping(false);
+                return setError(
+                    'You must wait 12 hours before bumping again. (how did you click it?)'
+                );
+            default:
+                props.bumpProfile();
+        }
+
+        setTimeout(() => {
+            setBumpPopup(false);
+        }, 4000);
+    };
+
+    const remainingHours = Math.floor(remainingTime / (1000 * 60 * 60));
+    const remainingMinutes = Math.floor(
+        (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const remainingSeconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
     return (
         <div className='flex items-center justify-center py-20 px-11 gap-8'>
@@ -200,6 +264,15 @@ function Profile(props: any) {
                 className='bg-darkMain flex justify-center p-4 w-[900px] h-[455px] flex-wrap rounded-md relative'
                 onSubmit={handleSubmit}
             >
+                <div
+                    className={`bg-discordBlue absolute z-10 w-40 h-8 text-white flex justify-center items-center ${
+                        bumpPopup
+                            ? 'opacity-100 -top-[40px]'
+                            : 'opacity-0 -top-[64px]'
+                    } transition-max-height duration-500`}
+                >
+                    <p>Profile bumped!</p>
+                </div>
                 <div
                     className={`bg-discordBlue absolute z-10 w-40 h-8 text-white flex justify-center items-center ${
                         popup
@@ -331,7 +404,35 @@ function Profile(props: any) {
                         </label>
                     </div>
                 </div>
-                <div className='flex justify-end w-full pr-4 pb-4'>
+                <div className='flex justify-end w-full pr-4 pb-4 gap-4'>
+                    <button
+                        className={
+                            initialRemaining > 0 || bumping
+                                ? 'cursor-not-allowed opacity-50 w-28 h-8 text-black bg-white rounded-md p-2 text-[0.8rem] font-sans font-light'
+                                : 'w-28 h-8 text-black bg-white rounded-md p-2 text-[0.8rem] font-sans font-light hover:opacity-90'
+                        }
+                        onClick={handleBump}
+                        type='button'
+                        disabled={initialRemaining > 0}
+                    >
+                        {remainingTime > 0
+                            ? `${
+                                  remainingHours < 10
+                                      ? `0${remainingHours}`
+                                      : remainingHours
+                              }:${
+                                  remainingMinutes < 10
+                                      ? `0${remainingMinutes}`
+                                      : remainingMinutes
+                              }:${
+                                  remainingSeconds < 10
+                                      ? `0${remainingSeconds}`
+                                      : remainingSeconds
+                              }`
+                            : bumping
+                            ? 'Bumping....'
+                            : 'Bump profile'}
+                    </button>
                     <button
                         className={
                             loading

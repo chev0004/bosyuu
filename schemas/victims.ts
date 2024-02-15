@@ -13,6 +13,7 @@ const victimSchema = new Schema({
     email: String,
     locale: String,
     gender: String,
+    cooldown: Number,
 });
 
 const Victim = models.victim || amongus.model('victim', victimSchema);
