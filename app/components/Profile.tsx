@@ -1,25 +1,31 @@
 'use client';
 
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Updated from './Updated';
+import { useState, useEffect, useRef } from 'react';
 
 function Profile(props: any) {
+    //victim data
     const { victim } = props;
+
+    //set ref to null for now
     const inputRef = useRef(null);
 
+    //state variables
     const [error, setError] = useState('');
     const [tags, setTags] = useState(victim.tags || []);
     const [gender, setGender] = useState(victim.gender || '3');
     const [description, setDescription] = useState(victim.description || '');
 
+    //tag addition handler
     useEffect(() => {
         const handleKeyDown = (event: any) => {
             if (event.key === 'Enter') {
+                //if enter key is pressed
                 event.preventDefault();
                 const inputValue = event.target.value;
 
+                //error checking
                 switch (true) {
                     case inputValue.length >= 23:
                         return setError(
@@ -35,19 +41,22 @@ function Profile(props: any) {
                         return setError('You can only have 6 tags.');
                 }
 
-                const updatedTags = [...tags, inputValue];
-                setTags(updatedTags);
-                setError('');
-                event.target.value = '';
+                const updatedTags = [...tags, inputValue]; //add new tag to existing array
+                setTags(updatedTags); //update tags
+                setError(''); //clear errors
+                event.target.value = ''; //clear input box
             }
         };
 
+        //add event listener to input
         const inputElement: any = inputRef.current;
 
+        //add event listener
         if (inputElement) {
             inputElement.addEventListener('keydown', handleKeyDown);
         }
 
+        //remove event listener
         return () => {
             if (inputElement) {
                 inputElement.removeEventListener('keydown', handleKeyDown);
@@ -55,26 +64,31 @@ function Profile(props: any) {
         };
     }, [tags]);
 
+    //tag removal
     const removeTag = (index: number) => {
         const updatedTags = [...tags];
         updatedTags.splice(index, 1);
         setTags(updatedTags);
     };
 
+    //submit states
     const [loading, setLoading] = useState(false);
     const [popup, setPopup] = useState(false);
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
+        //for button
         setLoading(true);
 
+        //data to pass
         const formData = {
             description: description,
             tags: tags,
             gender: gender,
         };
 
+        //fake loading
         await new Promise((resolve: any) => {
             setTimeout(() => {
                 setLoading(false);
@@ -82,6 +96,7 @@ function Profile(props: any) {
             }, 1000);
         });
 
+        //error checking
         switch (true) {
             case tags.length > 6:
                 setLoading(false);
@@ -91,8 +106,10 @@ function Profile(props: any) {
                 return setError('You must have a description.');
         }
 
+        //pass data to server
         props.updateProfile(formData);
 
+        //clear errors and remove popup after 4 seconds of displaying it
         setError('');
         setPopup(true);
         setTimeout(() => {
@@ -100,11 +117,12 @@ function Profile(props: any) {
         }, 4000);
     };
 
+    //remaining time calculator
     const calculateRemainingTime = (cooldownTime: number) => {
-        const currentTime = new Date().getTime();
-        return Math.max(0, cooldownTime - currentTime);
+        return Math.max(0, cooldownTime - Date.now());
     };
 
+    //bump states
     const [bumping, setBumping] = useState(false);
     const [bumpPopup, setBumpPopup] = useState(false);
     const [bumpCooldown, setBumpCooldown] = useState(victim.cooldown);
@@ -114,12 +132,15 @@ function Profile(props: any) {
 
     const cooldownTime = 12 * 60 * 60 * 1000; //12 hours
 
+    //initial fixed number for button
     const initialRemaining = calculateRemainingTime(bumpCooldown);
 
+    //update bump cooldown time when component mounts
     useEffect(() => {
         setBumpCooldown(bumpCooldown + cooldownTime);
     }, []);
 
+    //update remaining time every second
     useEffect(() => {
         const timer = setInterval(() => {
             const remaining = calculateRemainingTime(bumpCooldown);
@@ -132,10 +153,16 @@ function Profile(props: any) {
     const handleBump = async (event: any) => {
         event.preventDefault();
 
-        if (Date.now() - victim.cooldown < 43200000) return;
+        //check if the user clicked too soon
+        if (Date.now() - victim.cooldown < 43200000) {
+            return setError(
+                'You must wait 12 hours before bumping again. (how did you click it?)'
+            );
+        }
 
         setBumping(true);
 
+        //wait 2 seconds (for fake loading)
         await new Promise((resolve: any) => {
             setTimeout(() => {
                 setBumping(false);
@@ -143,24 +170,20 @@ function Profile(props: any) {
             }, 2000);
         });
 
+        //display popup and update cooldown
         setBumpPopup(true);
         setBumpCooldown(Date.now() + cooldownTime);
 
-        switch (true) {
-            case remainingTime > 0:
-                setBumping(false);
-                return setError(
-                    'You must wait 12 hours before bumping again. (how did you click it?)'
-                );
-            default:
-                props.bumpProfile();
-        }
+        //profil bumpening
+        props.bumpProfile();
 
+        //remove popup
         setTimeout(() => {
             setBumpPopup(false);
         }, 4000);
     };
 
+    //time formatting
     const remainingHours = Math.floor(remainingTime / (1000 * 60 * 60));
     const remainingMinutes = Math.floor(
         (remainingTime % (1000 * 60 * 60)) / (1000 * 60)
@@ -169,7 +192,6 @@ function Profile(props: any) {
 
     return (
         <div className='flex items-center justify-center py-20 px-11 gap-8'>
-            {/* <Updated /> */}
             <div
                 key={victim.userid}
                 className='bg-darkMain rounded-md text-white overflow-hidden relative h-fit w-[400px]'
@@ -263,10 +285,12 @@ function Profile(props: any) {
                     </div>
                 </div>
             </div>
+            {/* main form */}
             <form
                 className='bg-darkMain flex justify-center p-4 w-[900px] h-[455px] flex-wrap rounded-md relative'
                 onSubmit={handleSubmit}
             >
+                {/* bump popup */}
                 <div
                     className={`bg-discordBlue absolute z-10 w-40 h-8 text-white flex justify-center items-center ${
                         bumpPopup
@@ -276,6 +300,7 @@ function Profile(props: any) {
                 >
                     <p>Profile bumped!</p>
                 </div>
+                {/* update popup */}
                 <div
                     className={`bg-discordBlue absolute z-10 w-40 h-8 text-white flex justify-center items-center ${
                         popup
@@ -285,12 +310,15 @@ function Profile(props: any) {
                 >
                     <p>Profile updated!</p>
                 </div>
+                {/* error popup */}
                 {error && (
                     <div className='bg-red-500 absolute w-full rounded-md text-center -top-[24px] text-white'>
                         {error}
                     </div>
                 )}
+                {/* tags parent */}
                 <div className='w-full h-fit bg-darkerMain'>
+                    {/* tags */}
                     <div
                         className={`flex gap-1 flex-wrap ${
                             tags.length === 0 ? 'h-9' : 'h-fit'
@@ -302,6 +330,7 @@ function Profile(props: any) {
                                 className='text-white font-sans text font-light text-[0.86rem] bg-back rounded-md w-fit h-fit p-1 flex flex-row gap-1 flex-wrap items-center'
                             >
                                 {tag}
+                                {/* x buttons */}
                                 <button
                                     type='button'
                                     onClick={() => removeTag(index)}
@@ -313,9 +342,11 @@ function Profile(props: any) {
                             </div>
                         ))}
                     </div>
+                    {/* divider */}
                     <div className='flex justify-center'>
                         <div className='bg-back w-[94%] h-[2px]'></div>
                     </div>
+                    {/* tag input field */}
                     <input
                         ref={inputRef}
                         placeholder='Enter profile tags'
@@ -323,8 +354,11 @@ function Profile(props: any) {
                         className='bg-darkerMain mt-1 font-sans font-light text-sm rounded-md focus:ring-0 focus:outline-none h-9 w-full p-4 text-white'
                     />
                 </div>
+                {/* gender and description box */}
                 <div className='w-full h-fit'>
+                    {/* description parent div */}
                     <div className='bg-darkerMain mt-1 rounded-md focus:ring-0 h-36 w-full pb-4 relative'>
+                        {/* description field */}
                         <textarea
                             placeholder='Enter profile description'
                             defaultValue={description}
@@ -335,16 +369,19 @@ function Profile(props: any) {
                             maxLength={604}
                             className='bg-darkerMain text-wrap mt-1 resize-none font-sans font-light text-sm rounded-md focus:ring-0 focus:outline-none h-full w-full p-2 text-white text-start'
                         />
+                        {/* character counter */}
                         <p className='text-gray-400 font-sans font-light justify-end text-[0.74rem] absolute -bottom-5 right-2'>
                             {description.length}/604
                         </p>
                     </div>
+                    {/* gender div */}
                     <div className='flex justify-center flex-col mt-5 w-fit bg-darkerMain px-4 pb-4 pt-1 rounded-md '>
                         <div className='flex justify-center items-center'>
                             <p className='text-gray-400 font-sans font-light text-[0.74rem]'>
                                 Gender
                             </p>
                         </div>
+                        {/* radio buttons */}
                         <label className='text-white hover:cursor-pointer font-sans font-light text-sm h-fit flex items-center gap-2 flex-row-reverse justify-end'>
                             <input
                                 type='radio'
@@ -407,7 +444,9 @@ function Profile(props: any) {
                         </label>
                     </div>
                 </div>
+                {/* bump and update */}
                 <div className='flex justify-end w-full pr-4 pb-4 gap-4'>
+                    {/* bump button */}
                     <button
                         className={
                             initialRemaining > 0 || bumping
@@ -436,6 +475,7 @@ function Profile(props: any) {
                             ? 'Bumping....'
                             : 'Bump profile'}
                     </button>
+                    {/* update button */}
                     <button
                         className={
                             loading
