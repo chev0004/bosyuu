@@ -13,7 +13,14 @@ export function middleware(req: NextRequest) {
     }
 
     if (!isLoggedIn && req.url == 'http://localhost:3000/profile') {
-        return NextResponse.redirect(process.env.NEXTAUTH_URL as string);
+        return NextResponse.redirect('http://localhost:3000/board');
+    }
+
+    if (
+        req.url === 'http://localhost:3000/' ||
+        req.url === 'http://localhost:3000'
+    ) {
+        return NextResponse.redirect('http://localhost:3000/board');
     }
 
     return NextResponse.next();
