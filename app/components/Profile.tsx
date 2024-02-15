@@ -131,6 +131,9 @@ function Profile(props: any) {
 
     const handleBump = async (event: any) => {
         event.preventDefault();
+
+        if (Date.now() - victim.cooldown < 43200000) return;
+
         setBumping(true);
 
         await new Promise((resolve: any) => {
