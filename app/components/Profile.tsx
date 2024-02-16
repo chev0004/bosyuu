@@ -138,7 +138,7 @@ function Profile(props: any) {
     //update bump cooldown time when component mounts
     useEffect(() => {
         setBumpCooldown(bumpCooldown + cooldownTime);
-    }, []);
+    }, [cooldownTime]);
 
     //update remaining time every second
     useEffect(() => {
@@ -148,7 +148,7 @@ function Profile(props: any) {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [bumpCooldown]);
+    }, [bumpCooldown, cooldownTime]);
 
     const handleBump = async (event: any) => {
         event.preventDefault();
