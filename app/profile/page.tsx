@@ -4,7 +4,7 @@ import connect from '@/libs/mongo';
 import Victim from '@/schemas/victims';
 import Profile from '../components/Profile';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '@/authOptions';
 
 export const metadata: Metadata = {
     title: 'Bosyuu - Profile',

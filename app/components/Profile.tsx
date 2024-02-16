@@ -192,9 +192,10 @@ function Profile(props: any) {
 
     return (
         <div className='flex items-center justify-center py-20 px-11 gap-8'>
+            {/* profile preview */}
             <div
                 key={victim.userid}
-                className='bg-darkMain rounded-md text-white overflow-hidden relative h-fit w-[400px]'
+                className='bg-darkMain rounded-md text-white overflow-hidden relative h-fit w-[400px] hidden lg:block'
             >
                 {/* gender banner */}
                 <div

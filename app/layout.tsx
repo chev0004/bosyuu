@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import { Rokkitt } from 'next/font/google';
 import { AuthProvider } from './Providers';
 import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
+import { authOptions } from '@/authOptions';
 
 const rokkitt = Rokkitt({ subsets: ['latin'] });
 
