@@ -29,7 +29,7 @@
         "app/api/auth/[...nextauth]",
         "app/Providers.tsx",
         "app/components/Navbar.jsx",
-        "src/middleware.ts"
+        "middleware.ts"
     ],
     "exclude": ["node_modules"]
 }
