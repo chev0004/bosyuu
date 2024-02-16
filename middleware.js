@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
-export function middleware(req: NextRequest) {
+export function middleware(req) {
     const isLoggedIn = Boolean(req.cookies.get('next-auth.session-token'));
     const url = req.nextUrl;
     const { pathname } = url;
