@@ -5,8 +5,9 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl;
     const { pathname } = url;
 
-    console.log(isLoggedIn);
-    console.log(req.cookies);
+    if (req.url == 'https://bosyuu.netlify.app/profile') {
+        console.log(req.cookies);
+    }
 
     if (pathname.startsWith(`/api/`)) {
         if (req.headers.get('sec-fetch-site') == 'none') {
