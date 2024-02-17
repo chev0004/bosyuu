@@ -16,7 +16,7 @@ export function middleware(req: NextRequest) {
         req.headers.get('sec-fetch-site') == 'cross-site' &&
         req.url.startsWith('https://bosyuu.netlify.app/profile')
     ) {
-        return NextResponse.redirect('https://bosyuu.netlify.app/profile');
+        return NextResponse.redirect('https://bosyuu.netlify.app/board');
     }
     if (!isLoggedIn && req.url.startsWith('http://localhost:3000/profile')) {
         return NextResponse.redirect('http://localhost:3000/board');
