@@ -14,9 +14,9 @@ export function middleware(req: NextRequest) {
     if (!isLoggedIn && req.url == 'http://localhost:3000/profile') {
         return NextResponse.redirect('http://localhost:3000/board');
     }
-    if (!isLoggedIn && req.url == 'https://bosyuu.netlify.app/profile') {
-        return NextResponse.redirect('https://bosyuu.netlify.app/board');
-    }
+    // if (!isLoggedIn && req.url == 'https://bosyuu.netlify.app/profile') {
+    //     return NextResponse.redirect('https://bosyuu.netlify.app/board');
+    // }
     if (!isLoggedIn && req.url == 'https://bosyuu.vercel.app/profile') {
         return NextResponse.redirect('https://bosyuu.vercel.app/board');
     }
