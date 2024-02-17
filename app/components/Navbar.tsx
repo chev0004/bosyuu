@@ -45,7 +45,7 @@ const Navbar = (props: any) => {
                 <button
                     onClick={() =>
                         signIn('discord', {
-                            callbackUrl: 'https://bosyuu.netlify.app/board',
+                            callbackUrl: 'https://bosyuu.netlify.app/profile',
                         })
                     }
                     className={`text-white ${rokkitt.className}`}
