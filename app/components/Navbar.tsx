@@ -13,7 +13,11 @@ const Navbar = (props: any) => {
             <nav className='bg-darkMain h-16 relative flex items-center'>
                 <div className='w-32 flex justify-around absolute right-4'>
                     <button
-                        onClick={() => signOut({ callbackUrl: '/' })}
+                        onClick={() =>
+                            signOut({
+                                callbackUrl: 'https://bosyuu.netlify.app/board',
+                            })
+                        }
                         className={`text-red-500 rokkitt ${rokkitt.className}`}
                     >
                         Logout
@@ -39,7 +43,11 @@ const Navbar = (props: any) => {
         <nav className='bg-darkMain h-16 relative flex items-center'>
             <div className='w-32 flex justify-around absolute right-4'>
                 <button
-                    onClick={() => signIn('discord', { callbackUrl: '/' })}
+                    onClick={() =>
+                        signIn('discord', {
+                            callbackUrl: 'https://bosyuu.netlify.app/board',
+                        })
+                    }
                     className={`text-white ${rokkitt.className}`}
                 >
                     Login with Discord
