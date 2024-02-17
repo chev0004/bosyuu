@@ -9,7 +9,7 @@ function Profile(props: any) {
     const { victim } = props;
 
     //set ref to null for now
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     //state variables
     const [error, setError] = useState('');
@@ -63,6 +63,16 @@ function Profile(props: any) {
             }
         };
     }, [tags]);
+
+    //tag addition button for small screens
+    const tagAdditionButton = () => {
+        if (inputRef.current) {
+            const event = new KeyboardEvent('keydown', {
+                key: 'Enter',
+            });
+            inputRef.current.dispatchEvent(event);
+        }
+    };
 
     //tag removal
     const removeTag = (index: number) => {
@@ -288,7 +298,7 @@ function Profile(props: any) {
             </div>
             {/* main form */}
             <form
-                className='bg-darkMain flex justify-center p-4 w-[900px] h-[455px] flex-wrap rounded-md relative'
+                className='bg-darkMain flex justify-center p-4 w-[900px] h-fit flex-wrap rounded-md relative'
                 onSubmit={handleSubmit}
             >
                 {/* bump popup */}
@@ -318,7 +328,7 @@ function Profile(props: any) {
                     </div>
                 )}
                 {/* tags parent */}
-                <div className='w-full h-fit bg-darkerMain'>
+                <div className='w-full h-fit bg-darkerMain relative'>
                     {/* tags */}
                     <div
                         className={`flex gap-1 flex-wrap ${
@@ -354,6 +364,14 @@ function Profile(props: any) {
                         autoComplete='off'
                         className='bg-darkerMain mt-1 font-sans font-light text-sm rounded-md focus:ring-0 focus:outline-none h-9 w-full p-4 text-white'
                     />
+                    {/* add tag button */}
+                    <button
+                        className='bg-white h-6 w-14 absolute bottom-2 right-2 rounded-md text-[0.8rem] font-light font-sans text-center hover:opacity-90 lg:hidden'
+                        onClick={tagAdditionButton}
+                        type='button'
+                    >
+                        Add
+                    </button>
                 </div>
                 {/* gender and description box */}
                 <div className='w-full h-fit'>
@@ -446,7 +464,7 @@ function Profile(props: any) {
                     </div>
                 </div>
                 {/* bump and update */}
-                <div className='flex justify-end w-full pr-4 pb-4 gap-4'>
+                <div className='flex justify-end w-full gap-4 mt-4'>
                     {/* bump button */}
                     <button
                         className={
