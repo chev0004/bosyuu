@@ -6,7 +6,7 @@ export function middleware(req: NextRequest) {
     const { pathname } = url;
 
     if (req.url == 'https://bosyuu.netlify.app/profile') {
-        console.log(req.cookies);
+        console.log(req.cookies.get('__Secure-next-auth.session-token'));
     }
 
     if (pathname.startsWith(`/api/`)) {
