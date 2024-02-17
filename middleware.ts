@@ -7,14 +7,17 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl;
     const { pathname } = url;
 
-    console.log(req.headers.get('sec-fetch-site'), req.url);
-
     if (pathname.startsWith(`/api/`)) {
         if (req.headers.get('sec-fetch-site') == 'none') {
             return NextResponse.rewrite(new URL('/not-found', req.url));
         }
     }
-
+    if (
+        req.headers.get('sec-fetch-site') == 'cross-site' &&
+        req.url.startsWith('https://bosyuu.netlify.app/profile')
+    ) {
+        return NextResponse.redirect('https://bosyuu.netlify.app/profile');
+    }
     if (!isLoggedIn && req.url.startsWith('http://localhost:3000/profile')) {
         return NextResponse.redirect('http://localhost:3000/board');
     }
