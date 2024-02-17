@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
 
     if (pathname.startsWith(`/api/`)) {
         if (req.headers.get('sec-fetch-site') == 'none') {
-            return NextResponse.error();
+            return NextResponse.rewrite(new URL('/not-found', req.url));
         }
     }
 
