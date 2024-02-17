@@ -5,6 +5,9 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl;
     const { pathname } = url;
 
+    console.log(isLoggedIn);
+    console.log(req.cookies);
+
     if (pathname.startsWith(`/api/`)) {
         if (req.headers.get('sec-fetch-site') == 'none') {
             return NextResponse.rewrite(new URL('/not-found', req.url));
