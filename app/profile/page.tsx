@@ -21,7 +21,7 @@ const profile = async () => {
     const session = await getServerSession(authOptions);
 
     const res = await fetch(
-        `http://localhost:3000/api/victims/${session.user.profile.id}`
+        `https://bosyuu.netlify.app/api/victims/${session.user.profile.id}`
     );
     const victimData = (await res.json()).victim;
 
