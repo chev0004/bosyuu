@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { victim } from '../board/page';
+import { formatTimestamp } from '../board/page';
 
 const VictimGrid = (props: any) => {
     //sort victims by most recent timestamp
@@ -44,7 +45,7 @@ const VictimGrid = (props: any) => {
                             <div className='h-10 my-2 flex items-center justify-end'>
                                 {/* timestamp */}
                                 <p className='bg-darkerMain rounded-lg p-1 font-sans text-[0.8rem] font-light'>
-                                    {props.formatTimestamp(victim.timestamp)}
+                                    {formatTimestamp(victim.timestamp)}
                                 </p>
                             </div>
                             <div className='h-80 bg-darkerMain rounded-md p-3'>

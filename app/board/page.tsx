@@ -52,10 +52,7 @@ const Board = async () => {
                 <PopularTags victims={victims} />
 
                 {/* jail cells */}
-                <VictimGrid
-                    victim={victims}
-                    formatTimestamp={formatTimestamp}
-                />
+                <VictimGrid victim={victims} />
             </>
         );
     } catch (error) {

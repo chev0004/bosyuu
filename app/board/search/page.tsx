@@ -47,10 +47,7 @@ const BoardSearch = async ({
                 <PopularTags victims={victims} />
 
                 {/* jail cells */}
-                <VictimGrid
-                    victims={victims}
-                    formatTimestamp={formatTimestamp}
-                />
+                <VictimGrid victims={victims} />
             </>
         );
     } catch (error) {
