@@ -1,4 +1,44 @@
+import { victim } from '../board/page';
+
 const PopularTags = (props: any) => {
+    //empty array
+    let popularTags: { tag: string; count: number }[] = [];
+
+    const getTagCounts = async () => {
+        try {
+            //object to store tag counts
+            const tagCounts: { [key: string]: number } = {};
+
+            //loop through each victim and their tags
+            props.victims.forEach((victim: victim) => {
+                victim.tags.forEach((tag: string) => {
+                    //increment the count for this tag
+                    if (tagCounts[tag]) {
+                        tagCounts[tag]++;
+                    } else {
+                        tagCounts[tag] = 1;
+                    }
+                });
+            });
+
+            //convert it into an array of objects with tag and count properties (thanks chatgpt)
+            const tagCountArray = Object.keys(tagCounts).map((tag) => ({
+                tag,
+                count: tagCounts[tag],
+            }));
+
+            //final product (object with properties tag and count)
+            popularTags = tagCountArray.sort(
+                (a: { count: number }, b: { count: number }) =>
+                    b.count - a.count
+            );
+        } catch (error) {
+            console.error("something's gone wrong again:", error);
+            throw error;
+        }
+    };
+
+    getTagCounts();
     return (
         <div className='flex justify-center'>
             <div className='h-48 bg-darkMain rounded-md w-11/12 px-2'>
@@ -10,7 +50,7 @@ const PopularTags = (props: any) => {
                 </div>
                 <div className='overflow-scroll h-[150px]'>
                     <div className='flex justify-start items-center flex-row flex-wrap gap-1'>
-                        {props.popularTags.map(
+                        {popularTags.map(
                             (
                                 tag: { tag: string; count: number },
                                 i: number

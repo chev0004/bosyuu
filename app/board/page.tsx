@@ -1,8 +1,8 @@
 import connect from '@/libs/mongo';
 import Victim from '@/schemas/victims';
 import Search from '../components/Search';
-import PopularTags from '../components/PopularTags';
 import VictimGrid from '../components/VictimGrid';
+import PopularTags from '../components/PopularTags';
 
 export interface victim {
     userid: string;
@@ -21,45 +21,6 @@ const Board = async () => {
     try {
         await connect();
         const victims = await Victim.find();
-
-        //empty array
-        let popularTags: { tag: string; count: number }[] = [];
-
-        const getTagCounts = async () => {
-            try {
-                //object to store tag counts
-                const tagCounts: { [key: string]: number } = {};
-
-                //loop through each victim and their tags
-                victims.forEach((victim) => {
-                    victim.tags.forEach((tag: string) => {
-                        //increment the count for this tag
-                        if (tagCounts[tag]) {
-                            tagCounts[tag]++;
-                        } else {
-                            tagCounts[tag] = 1;
-                        }
-                    });
-                });
-
-                //convert it into an array of objects with tag and count properties (thanks chatgpt)
-                const tagCountArray = Object.keys(tagCounts).map((tag) => ({
-                    tag,
-                    count: tagCounts[tag],
-                }));
-
-                //final product (object with properties tag and count)
-                popularTags = tagCountArray.sort(
-                    (a: { count: number }, b: { count: number }) =>
-                        b.count - a.count
-                );
-            } catch (error) {
-                console.error("something's gone wrong again:", error);
-                throw error;
-            }
-        };
-
-        getTagCounts();
 
         //sort victims by most recent timestamp
         const sortedVictims = victims.sort(
@@ -94,7 +55,7 @@ const Board = async () => {
                 <Search getQuery={getQuery} />
 
                 {/* popular tags */}
-                <PopularTags popularTags={popularTags} />
+                <PopularTags victims={victims} />
 
                 {/* jail cells */}
                 <VictimGrid
