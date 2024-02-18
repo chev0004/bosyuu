@@ -109,7 +109,7 @@ const Board = async () => {
 };
 
 //translate miliseconds so you humans can read it
-const formatTimestamp = (timestamp: number) => {
+export const formatTimestamp = (timestamp: number) => {
     const now = Date.now();
     const secondsAgo = Math.floor((now - timestamp) / 1000);
 
