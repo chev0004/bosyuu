@@ -2,11 +2,16 @@ import Image from 'next/image';
 import { victim } from '../board/page';
 
 const VictimGrid = (props: any) => {
+    //sort victims by most recent timestamp
+    const sortedVictims = props.victims.sort(
+        (a: { timestamp: number }, b: { timestamp: number }) =>
+            b.timestamp - a.timestamp
+    );
     return (
         <div className='flex justify-center py-24'>
             {/* victim grid */}
             <div className='gap-8 grid grid-cols-1 w-11/12 lg:grid-cols-3 md:grid-cols-2'>
-                {props.sortedVictims.map((victim: victim) => (
+                {sortedVictims.map((victim: victim) => (
                     <div
                         key={victim.userid}
                         className='bg-darkMain rounded-md text-white overflow-hidden relative'

@@ -17,12 +17,6 @@ const BoardSearch = async ({
         await connect();
         const victims = await Victim.find();
 
-        //sort victims by most recent timestamp
-        const sortedVictims = victims.sort(
-            (a: { timestamp: number }, b: { timestamp: number }) =>
-                b.timestamp - a.timestamp
-        );
-
         const getQuery = async (formData: FormData) => {
             'use server';
             if (!formData.get('query')) return;
@@ -54,7 +48,7 @@ const BoardSearch = async ({
 
                 {/* jail cells */}
                 <VictimGrid
-                    sortedVictims={sortedVictims}
+                    victims={victims}
                     formatTimestamp={formatTimestamp}
                 />
             </>
