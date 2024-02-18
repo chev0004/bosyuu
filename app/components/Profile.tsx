@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
-function Profile(props: any) {
+const Profile = (props: any) => {
     //victim data
     const { victim } = props;
 
@@ -510,6 +509,6 @@ function Profile(props: any) {
             </form>
         </div>
     );
-}
+};
 
 export default Profile;

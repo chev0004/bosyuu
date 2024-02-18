@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import connect from '@/libs/mongo';
 import Victim from '@/schemas/victims';
-import Search from '../components/Search';
+import Search from '../../components/Search';
 
 interface victim {
     userid: string;
@@ -16,7 +16,7 @@ interface victim {
     gender: string;
 }
 
-const Board = async () => {
+const BoardSearch = async () => {
     try {
         await connect();
         const victims = await Victim.find();
@@ -283,4 +283,4 @@ const formatTimestamp = (timestamp: number) => {
     }
 };
 
-export default Board;
+export default BoardSearch;

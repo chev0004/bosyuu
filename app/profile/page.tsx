@@ -1,10 +1,9 @@
-import React from 'react';
 import { Metadata } from 'next';
 import connect from '@/libs/mongo';
 import Victim from '@/schemas/victims';
 import Profile from '../components/Profile';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/authOptions';
+import { getServerSession } from 'next-auth';
 
 export const metadata: Metadata = {
     title: 'Bosyuu - Profile',

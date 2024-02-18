@@ -43,13 +43,3 @@ export const POST = async (req: Request) => {
         );
     }
 };
-
-// export const GET = async () => {
-//     try {
-//         await connect();
-//         const victims = await Victim.find();
-//         return NextResponse.json({ victims }, { status: 200 });
-//     } catch (error) {
-//         console.log('something went wrong (idk what it is) ', error);
-//     }
-// };
