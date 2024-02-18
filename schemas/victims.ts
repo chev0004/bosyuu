@@ -10,7 +10,6 @@ const victimSchema = new Schema({
     icon: String,
     valid: Boolean,
     timestamp: Number,
-    email: String,
     locale: String,
     gender: String,
     cooldown: Number,
