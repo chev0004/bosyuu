@@ -25,7 +25,6 @@ export const GET = async (req: NextRequest) => {
                 { description: { $regex: query, $options: 'i' } },
                 { icon: { $regex: query, $options: 'i' } },
                 { gender: { $regex: query, $options: 'i' } },
-                // Add more fields as needed
             ],
         });
 

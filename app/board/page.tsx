@@ -1,6 +1,7 @@
 import connect from '@/libs/mongo';
 import Victim from '@/schemas/victims';
 import Search from '../components/Search';
+import { redirect } from 'next/navigation';
 import VictimGrid from '../components/VictimGrid';
 import PopularTags from '../components/PopularTags';
 
@@ -28,19 +29,7 @@ const Board = async () => {
             console.log(formData.get('query'));
             const query = formData.get('query');
 
-            try {
-                const res = await fetch(
-                    `http:localhost:3000/api/search?q=${query}`
-                );
-                if (!res.ok) {
-                    throw new Error('failed to fetch data');
-                }
-                const data = await res.json();
-                console.log(data);
-            } catch (error) {
-                console.error('something went wrong:', error);
-                return { error: 'an error occurred while fetching data' };
-            }
+            redirect(`/board/search?q=${query}`);
         };
 
         return (
@@ -52,7 +41,7 @@ const Board = async () => {
                 <PopularTags victims={victims} />
 
                 {/* jail cells */}
-                <VictimGrid victim={victims} />
+                <VictimGrid victims={victims} />
             </>
         );
     } catch (error) {
