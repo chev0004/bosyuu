@@ -14,6 +14,7 @@ const BoardSearch = async ({
 }) => {
     const query = searchParams['q'];
     try {
+        await connect();
         const victims = await Victim.find();
         let displayVictims;
 
