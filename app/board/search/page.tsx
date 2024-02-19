@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import Search from '../../components/Search';
 import VictimGrid from '@/app/components/VictimGrid';
 import PopularTags from '@/app/components/PopularTags';
-import { formatTimestamp } from '../page';
 
 const BoardSearch = async ({
     params,
@@ -14,11 +13,7 @@ const BoardSearch = async ({
     searchParams: { [key: string]: string | string[] | undefined };
 }) => {
     const query = searchParams['q'];
-    console.log('after redirect', formatTimestamp(Date.now()));
     try {
-        await connect();
-
-        console.log('before data', formatTimestamp(Date.now()));
         const victims = await Victim.find();
         let displayVictims;
 
@@ -33,14 +28,11 @@ const BoardSearch = async ({
               }))
             : (displayVictims = victims);
 
-        console.log('after data', formatTimestamp(Date.now()));
-
         const getQuery = async (formData: FormData) => {
             'use server';
             if (!formData.get('query')) return;
             const query = formData.get('query');
 
-            console.log('before redirect', formatTimestamp(Date.now()));
             redirect(`/board/search?q=${query}`);
         };
 

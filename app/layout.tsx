@@ -3,8 +3,9 @@ import type { Metadata } from 'next';
 import Navbar from './components/Navbar';
 import { Rokkitt } from 'next/font/google';
 import { AuthProvider } from './Providers';
-import { getServerSession } from 'next-auth';
 import { authOptions } from '@/authOptions';
+import { getServerSession } from 'next-auth';
+import NextTopLoader from 'nextjs-toploader';
 
 const rokkitt = Rokkitt({ subsets: ['latin'] });
 
@@ -25,10 +26,17 @@ const RootLayout = async ({
     children: React.ReactNode;
 }>) => {
     const session = await getServerSession(authOptions);
+    let colour;
+    session?.user?.gender == '1'
+        ? (colour = '#c1d5e9')
+        : session?.user?.gender === '2'
+        ? (colour = '#f9a8d5')
+        : (colour = '#707070');
     return (
         <html lang='en'>
             <AuthProvider>
                 <body className={`${rokkitt.className} bg-back`}>
+                    <NextTopLoader color={colour} showSpinner={false} />
                     <Navbar icon={session?.user?.image} />
                     {children}
                 </body>
