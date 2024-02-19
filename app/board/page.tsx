@@ -20,7 +20,6 @@ export interface victim {
 
 const Board = async () => {
     try {
-        await connect();
         const victims = await Victim.find();
 
         const getQuery = async (formData: FormData) => {
