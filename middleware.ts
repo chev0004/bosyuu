@@ -24,7 +24,7 @@ export function middleware(req: NextRequest) {
         return NextResponse.redirect(new URL('/board', req.url));
     }
 
-    if (pathname === '/' || pathname === '/board/search') {
+    if (pathname === '/') {
         return NextResponse.redirect(new URL('/board', req.url));
     }
 
