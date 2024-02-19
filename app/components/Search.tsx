@@ -29,7 +29,7 @@ const Search = () => {
                 />
                 <input
                     name='query '
-                    placeholder='Search (username, description, or a tag)'
+                    placeholder='Search (name, description, or a tag)'
                     autoComplete='off'
                     className='bg-darkMain rounded-md focus:ring-0 focus:outline-none h-10 w-full p-4 text-white'
                 />
