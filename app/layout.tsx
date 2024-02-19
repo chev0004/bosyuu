@@ -26,17 +26,11 @@ const RootLayout = async ({
     children: React.ReactNode;
 }>) => {
     const session = await getServerSession(authOptions);
-    let colour;
-    session?.user?.gender == '1'
-        ? (colour = '#c1d5e9')
-        : session?.user?.gender === '2'
-        ? (colour = '#f9a8d5')
-        : (colour = '#707070');
     return (
         <html lang='en'>
             <AuthProvider>
                 <body className={`${rokkitt.className} bg-back`}>
-                    <NextTopLoader color={colour} showSpinner={false} />
+                    <NextTopLoader color='#c1d5e9' showSpinner={false} />
                     <Navbar icon={session?.user?.image} />
                     {children}
                 </body>
