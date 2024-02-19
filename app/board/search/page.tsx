@@ -33,7 +33,6 @@ const BoardSearch = async ({
         const getQuery = async (formData: FormData) => {
             'use server';
             if (!formData.get('query')) return;
-            console.log(formData.get('query'));
             const query = formData.get('query');
 
             redirect(`/board/search?q=${query}`);
