@@ -23,7 +23,7 @@ const Board = async ({
     params: { slug: string };
     searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-    const query = searchParams['search'];
+    const query = searchParams['search'] as string;
     try {
         await connect();
 
@@ -31,14 +31,21 @@ const Board = async ({
         let displayVictims;
 
         query
-            ? (displayVictims = await Victim.find({
-                  $or: [
-                      { displayname: { $regex: query, $options: 'i' } },
-                      { username: { $regex: query, $options: 'i' } },
-                      { tags: { $regex: query, $options: 'i' } },
-                      { description: { $regex: query, $options: 'i' } },
-                  ],
-              }))
+            ? (displayVictims = victims.filter(
+                  (victim) =>
+                      victim.displayname
+                          .toLowerCase()
+                          .includes(query.toLowerCase()) ||
+                      victim.username
+                          .toLowerCase()
+                          .includes(query.toLowerCase()) ||
+                      victim.tags.some((tag: string) =>
+                          tag.toLowerCase().includes(query.toLowerCase())
+                      ) ||
+                      victim.description
+                          .toLowerCase()
+                          .includes(query.toLowerCase())
+              ))
             : (displayVictims = victims);
 
         return (
