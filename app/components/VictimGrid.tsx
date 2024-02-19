@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { victim } from '../board/page';
-import { formatTimestamp } from '../board/page';
+import { formatTimestamp } from '@/libs/format';
 
 const VictimGrid = (props: any) => {
     //sort victims by most recent timestamp
