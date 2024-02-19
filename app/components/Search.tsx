@@ -11,7 +11,10 @@ const Search = () => {
             //if enter key is pressed
             event.preventDefault();
             const inputValue = event.target.value;
-            router.push(`/board?search=${inputValue}`);
+
+            !inputValue
+                ? router.push('/board')
+                : router.push(`/board?search=${inputValue}`);
         }
     };
     return (
