@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
-    const isLoggedIn = Boolean(
-        req.cookies.get('__Secure-next-auth.session-token')
-    );
+    const isLoggedIn = Boolean(req.cookies.get('next-auth.session-token'));
     const url = req.nextUrl;
     const { pathname } = url;
 
@@ -12,45 +10,20 @@ export function middleware(req: NextRequest) {
             return NextResponse.rewrite(new URL('/not-found', req.url));
         }
     }
-    if (
-        req.headers.get('sec-fetch-site') == 'cross-site' &&
-        req.url.startsWith('https://bosyuu.netlify.app/profile')
-    ) {
-        return NextResponse.redirect('https://bosyuu.netlify.app/board');
-    }
-    if (!isLoggedIn && req.url.startsWith('http://localhost:3000/profile')) {
-        return NextResponse.redirect('http://localhost:3000/board');
-    }
-    if (
-        !isLoggedIn &&
-        req.url.startsWith('https://bosyuu.netlify.app/profile')
-    ) {
-        return NextResponse.redirect('https://bosyuu.netlify.app/board');
-    }
-    if (
-        !isLoggedIn &&
-        req.url.startsWith('https://bosyuu.vercel.app/profile')
-    ) {
-        return NextResponse.redirect('https://bosyuu.vercel.app/board');
-    }
 
     if (
-        req.url === 'http://localhost:3000/' ||
-        req.url === 'http://localhost:3000'
+        req.headers.get('sec-fetch-site') == 'cross-site' &&
+        pathname.startsWith('/profile')
     ) {
-        return NextResponse.redirect('http://localhost:3000/board');
+        return NextResponse.redirect(new URL('/board', req.url));
     }
-    if (
-        req.url === 'https://bosyuu.netlify.app/' ||
-        req.url === 'https://bosyuu.netlify.app'
-    ) {
-        return NextResponse.redirect('https://bosyuu.netlify.app/board');
+
+    if (!isLoggedIn && pathname.startsWith('/profile')) {
+        return NextResponse.redirect(new URL('/board', req.url));
     }
-    if (
-        req.url === 'https://bosyuu.vercel.app/' ||
-        req.url === 'https://bosyuu.vercel.app'
-    ) {
-        return NextResponse.redirect('https://bosyuu.vercel.app/board');
+
+    if (pathname === '/' || pathname === '/board/search') {
+        return NextResponse.redirect(new URL('/board', req.url));
     }
 
     return NextResponse.next();
