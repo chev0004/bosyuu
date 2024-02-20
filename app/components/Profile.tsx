@@ -4,6 +4,22 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
 const Profile = (props: any) => {
+    const [isChanged, setIsChanged] = useState(false);
+
+    //prevent refresh
+    useEffect(() => {
+        if (!isChanged) return;
+
+        const handleWindowClose = (event: any) => {
+            event.preventDefault();
+        };
+        window.addEventListener('beforeunload', handleWindowClose);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleWindowClose);
+        };
+    }, [isChanged]);
+
     //victim data
     const { victim } = props;
 
@@ -23,6 +39,7 @@ const Profile = (props: any) => {
                 //if enter key is pressed
                 event.preventDefault();
                 const inputValue = event.target.value;
+                setIsChanged(true);
 
                 //error checking
                 switch (true) {
@@ -75,6 +92,7 @@ const Profile = (props: any) => {
 
     //tag removal
     const removeTag = (index: number) => {
+        setIsChanged(true);
         const updatedTags = [...tags];
         updatedTags.splice(index, 1);
         setTags(updatedTags);
@@ -86,6 +104,8 @@ const Profile = (props: any) => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+
+        setIsChanged(false);
 
         //for button
         setLoading(true);
@@ -361,6 +381,10 @@ const Profile = (props: any) => {
                         ref={inputRef}
                         placeholder='Enter profile tags'
                         autoComplete='off'
+                        onChange={(e) => {
+                            e.preventDefault();
+                            setIsChanged(true);
+                        }}
                         className='bg-darkerMain mt-1 font-sans font-light text-sm rounded-md focus:ring-0 focus:outline-none h-9 w-full p-4 text-white'
                     />
                     {/* add tag button */}
@@ -381,6 +405,7 @@ const Profile = (props: any) => {
                             placeholder='Enter profile description'
                             defaultValue={description}
                             onChange={(e) => {
+                                setIsChanged(true);
                                 setDescription(e.target.value);
                             }}
                             autoComplete='off'
@@ -408,6 +433,7 @@ const Profile = (props: any) => {
                                 className='hidden peer'
                                 checked={gender === '1'}
                                 onChange={(e) => {
+                                    setIsChanged(true);
                                     setGender(e.target.value);
                                 }}
                             ></input>
@@ -428,6 +454,7 @@ const Profile = (props: any) => {
                                 className='hidden peer'
                                 checked={gender === '2'}
                                 onChange={(e) => {
+                                    setIsChanged(true);
                                     setGender(e.target.value);
                                 }}
                             ></input>
@@ -448,6 +475,7 @@ const Profile = (props: any) => {
                                 className='hidden peer'
                                 checked={gender === '3'}
                                 onChange={(e) => {
+                                    setIsChanged(true);
                                     setGender(e.target.value);
                                 }}
                             ></input>
