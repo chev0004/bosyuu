@@ -41,8 +41,8 @@ const Board = async ({
                   const foundInUsername = victim.username
                       .toLowerCase()
                       .includes(query.toLowerCase());
-                  const foundInTags = victim.tags.some((tag: string) =>
-                      tag.toLowerCase().includes(query.toLowerCase())
+                  const foundInTags = victim.tags.some(
+                      (tag: string) => tag.toLowerCase() == query.toLowerCase()
                   );
                   const foundInDescription = victim.description
                       .toLowerCase()
