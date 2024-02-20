@@ -30,7 +30,7 @@ const RootLayout = async ({
         <html lang='en'>
             <AuthProvider>
                 <body className={`${rokkitt.className} bg-back`}>
-                    <NextTopLoader color='#c1d5e9' showSpinner={false} />
+                    {/* <NextTopLoader color='#c1d5e9' showSpinner={false} /> */}
                     <Navbar icon={session?.user?.image} />
                     {children}
                 </body>
