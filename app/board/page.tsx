@@ -100,7 +100,7 @@ const Board = async ({
                             {displayVictims.length == 1
                                 ? ' user'
                                 : ' users'}{' '}
-                            listed with tag "{tagQuery}"
+                            listed with tag '{tagQuery}'
                         </p>
                     </div>
                 )}
