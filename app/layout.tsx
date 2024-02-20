@@ -25,12 +25,22 @@ const RootLayout = async ({
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
+    let colour: string = '#707070';
     const session = await getServerSession(authOptions);
+    const res = await fetch(
+        `https://bosyuu.netlify.app/api/victims/${session?.user?.profile.id}`
+    );
+    const victim = (await res?.json()).victim;
+    victim?.gender == '1'
+        ? (colour = '#c1d5e9')
+        : victim?.gender === '2'
+        ? (colour = '#f9a8d5')
+        : (colour = '#707070');
     return (
         <html lang='en'>
             <AuthProvider>
                 <body className={`${rokkitt.className} bg-back`}>
-                    {/* <NextTopLoader color='#c1d5e9' showSpinner={false} /> */}
+                    <NextTopLoader color={colour} showSpinner={false} />
                     <Navbar icon={session?.user?.image} />
                     {children}
                 </body>
