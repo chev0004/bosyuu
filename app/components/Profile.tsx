@@ -184,9 +184,7 @@ const Profile = (props: any) => {
 
         //check if the user clicked too soon
         if (Date.now() - victim.cooldown < 43200000) {
-            return setError(
-                'You must wait 12 hours before bumping again. (how did you click it?)'
-            );
+            return setError('You must wait 12 hours before bumping again.');
         }
 
         setBumping(true);
