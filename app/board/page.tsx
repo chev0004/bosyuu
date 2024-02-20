@@ -24,6 +24,7 @@ const Board = async ({
     searchParams: { [key: string]: string | string[] | undefined };
 }) => {
     const query = searchParams['search'] as string;
+    const tagQuery = searchParams['tag'] as string;
     try {
         await connect();
 
@@ -63,6 +64,10 @@ const Board = async ({
                       foundInDescription
                   );
               }))
+            : tagQuery
+            ? (displayVictims = victims.filter((victim) =>
+                  victim.tags.includes(tagQuery)
+              ))
             : (displayVictims = victims);
 
         return (
@@ -83,6 +88,19 @@ const Board = async ({
                             Total: {displayVictims.length}, Tags: {tagsMatches},
                             Users: {nameMatches}, Descriptions:{' '}
                             {descriptionMatches}
+                        </p>
+                    </div>
+                )}
+
+                {/* tag results */}
+                {tagQuery && (
+                    <div className='absolute inset-x-0 mx-auto mt-8'>
+                        <p className='text-white text-center'>
+                            {displayVictims.length}
+                            {displayVictims.length == 1
+                                ? ' user'
+                                : ' users'}{' '}
+                            listed with tag "{tagQuery}"
                         </p>
                     </div>
                 )}

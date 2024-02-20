@@ -55,12 +55,13 @@ const PopularTags = (props: any) => {
                                 tag: { tag: string; count: number },
                                 i: number
                             ) => (
-                                <div
+                                <a
                                     key={i}
                                     className='text-white font-sans text font-light text-[0.86rem] bg-back rounded-md w-fit h-fit p-1 flex flex-row gap-1 flex-wrap items-center'
+                                    href={`/board?tag=${tag.tag}`}
                                 >
                                     {`${tag.tag} (${tag.count})`}
-                                </div>
+                                </a>
                             )
                         )}
                     </div>

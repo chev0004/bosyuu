@@ -75,14 +75,15 @@ const VictimGrid = (props: any) => {
                                                             tag: string,
                                                             index: React.Key
                                                         ) => (
-                                                            <div
+                                                            <a
                                                                 key={index}
                                                                 className='text-white font-sans text font-light text-[0.86rem] bg-back rounded-md w-fit h-fit p-1 flex flex-row gap-1 flex-wrap items-center'
+                                                                href={`/board?tag=${tag}`}
                                                             >
                                                                 {/* dot thing */}
                                                                 <div className='w-1 h-1 rounded-full bg-white'></div>
                                                                 {tag}
-                                                            </div>
+                                                            </a>
                                                         )
                                                     )}
                                                 </div>
