@@ -82,7 +82,7 @@ const Board = async ({
                 {query && (
                     <div className='absolute inset-x-0 mx-auto mt-5'>
                         <p className='text-white text-center'>
-                            Search results for '{query}'
+                            Search results for: {query}
                         </p>
                         <p className='text-white text-center'>
                             Total: {displayVictims.length}, Tags: {tagsMatches},
@@ -100,7 +100,7 @@ const Board = async ({
                             {displayVictims.length == 1
                                 ? ' user'
                                 : ' users'}{' '}
-                            listed with tag '{tagQuery}'
+                            listed with tag: {tagQuery}
                         </p>
                     </div>
                 )}
