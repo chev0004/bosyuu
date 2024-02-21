@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { victim } from './board/page';
 import Navbar from './components/Navbar';
 import { Rokkitt } from 'next/font/google';
 import { AuthProvider } from './Providers';
@@ -20,20 +21,34 @@ export const metadata: Metadata = {
     ],
 };
 
+let victimData: victim;
+
+const getVictim = async () => {
+    const session = await getServerSession(authOptions);
+    const res = await fetch(
+        `https://bosyuu.netlify.app/api/victims/${session?.user?.profile.id}`
+    );
+    victimData = (await res?.json()).victim;
+};
+
+export const fetchVictimData = async () => {
+    if (!victimData) {
+        await getVictim();
+    }
+    return victimData;
+};
+
 const RootLayout = async ({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
     let colour: string = '#707070';
+    const victimData = await fetchVictimData();
     const session = await getServerSession(authOptions);
-    const res = await fetch(
-        `https://bosyuu.netlify.app/api/victims/${session?.user?.profile.id}`
-    );
-    const victim = (await res?.json()).victim;
-    victim?.gender == '1'
+    victimData?.gender == '1'
         ? (colour = '#c1d5e9')
-        : victim?.gender === '2'
+        : victimData?.gender === '2'
         ? (colour = '#f9a8d5')
         : (colour = '#707070');
     return (
