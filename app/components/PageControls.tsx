@@ -56,9 +56,8 @@ const PageControls = async (props: {
                     const buttons = [];
                     for (let p = 1; p <= props.totalPages; p++) {
                         buttons.push(
-                            <div className='relative'>
+                            <div className='relative' key={p}>
                                 <button
-                                    key={p}
                                     onClick={() =>
                                         router.push(`?page=${p}`, {
                                             scroll: false,
