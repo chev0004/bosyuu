@@ -32,98 +32,92 @@ export interface victim {
 const Board = async ({
     searchParams,
 }: {
-    params: { slug: string };
     searchParams: { [key: string]: string | string[] | undefined };
 }) => {
+    const page = (searchParams['page'] as string) ?? '1';
     const query = searchParams['search'] as string;
     const tagQuery = searchParams['tag'] as string;
-    try {
-        await connect();
 
-        const victims = await Victim.find();
-        let displayVictims;
-        let tagsMatches = 0;
-        let nameMatches = 0;
-        let descriptionMatches = 0;
+    await connect();
 
-        query
-            ? (displayVictims = victims.filter((victim) => {
-                  const foundInDisplayName = victim.displayname
-                      .toLowerCase()
-                      .includes(query.toLowerCase());
-                  const foundInUsername = victim.username
-                      .toLowerCase()
-                      .includes(query.toLowerCase());
-                  const foundInTags = victim.tags.some(
-                      (tag: string) => tag.toLowerCase() == query.toLowerCase()
-                  );
-                  const foundInDescription = victim.description
-                      .toLowerCase()
-                      .includes(query.toLowerCase());
+    const victims = await Victim.find();
+    let displayVictims;
+    let tagsMatches = 0;
+    let nameMatches = 0;
+    let descriptionMatches = 0;
 
-                  if (foundInDescription) {
-                      descriptionMatches++;
-                  } else if (foundInTags) {
-                      tagsMatches++;
-                  } else if (foundInUsername || foundInDisplayName) {
-                      nameMatches++;
-                  }
+    query
+        ? (displayVictims = victims.filter((victim) => {
+              const foundInDisplayName = victim.displayname
+                  .toLowerCase()
+                  .includes(query.toLowerCase());
+              const foundInUsername = victim.username
+                  .toLowerCase()
+                  .includes(query.toLowerCase());
+              const foundInTags = victim.tags.some(
+                  (tag: string) => tag.toLowerCase() == query.toLowerCase()
+              );
+              const foundInDescription = victim.description
+                  .toLowerCase()
+                  .includes(query.toLowerCase());
 
-                  return (
-                      foundInDisplayName ||
-                      foundInUsername ||
-                      foundInTags ||
-                      foundInDescription
-                  );
-              }))
-            : tagQuery
-            ? (displayVictims = victims.filter((victim) =>
-                  victim.tags.includes(tagQuery)
-              ))
-            : (displayVictims = victims);
+              if (foundInDescription) {
+                  descriptionMatches++;
+              } else if (foundInTags) {
+                  tagsMatches++;
+              } else if (foundInUsername || foundInDisplayName) {
+                  nameMatches++;
+              }
 
-        return (
-            <>
-                {/* search box */}
-                <Search />
+              return (
+                  foundInDisplayName ||
+                  foundInUsername ||
+                  foundInTags ||
+                  foundInDescription
+              );
+          }))
+        : tagQuery
+        ? (displayVictims = victims.filter((victim) =>
+              victim.tags.includes(tagQuery)
+          ))
+        : (displayVictims = victims);
 
-                {/* popular tags */}
-                <PopularTags victims={victims} />
+    return (
+        <>
+            {/* search box */}
+            <Search />
 
-                {/* search results */}
-                {query && (
-                    <div className='absolute inset-x-0 mx-auto mt-5'>
-                        <p className='text-white text-center'>
-                            Search results for &quot;{query}&quot;
-                        </p>
-                        <p className='text-white text-center'>
-                            Total: {displayVictims.length}, Tags: {tagsMatches},
-                            Users: {nameMatches}, Descriptions:{' '}
-                            {descriptionMatches}
-                        </p>
-                    </div>
-                )}
+            {/* popular tags */}
+            <PopularTags victims={victims} />
 
-                {/* tag results */}
-                {tagQuery && (
-                    <div className='absolute inset-x-0 mx-auto mt-8'>
-                        <p className='text-white text-center'>
-                            {displayVictims.length}
-                            {displayVictims.length == 1
-                                ? ' user'
-                                : ' users'}{' '}
-                            listed with tag &quot;{tagQuery}&quot;
-                        </p>
-                    </div>
-                )}
+            {/* search results */}
+            {query && (
+                <div className='absolute inset-x-0 mx-auto mt-5'>
+                    <p className='text-white text-center'>
+                        Search results for &quot;{query}&quot;
+                    </p>
+                    <p className='text-white text-center'>
+                        Total: {displayVictims.length}, Tags: {tagsMatches},
+                        Users: {nameMatches}, Descriptions: {descriptionMatches}
+                    </p>
+                </div>
+            )}
 
-                {/* jail cells */}
-                <VictimGrid victims={displayVictims} />
-            </>
-        );
-    } catch (error) {
-        console.error('something went wrong:', error);
-    }
+            {/* tag results */}
+            {tagQuery && (
+                <div className='absolute inset-x-0 mx-auto mt-8'>
+                    <p className='text-white text-center'>
+                        {displayVictims.length}
+                        {displayVictims.length == 1 ? ' user' : ' users'} listed
+                        with tag &quot;{tagQuery}&quot;
+                    </p>
+                </div>
+            )}
+
+            {/* jail cells */}
+            <VictimGrid victims={displayVictims} page={page} />
+        </>
+    );
 };
 
 export default Board;
