@@ -1,12 +1,16 @@
 import Image from 'next/image';
 import { victim } from '../board/page';
+import { fetchVictimData } from '../layout';
 import { formatTimestamp } from '@/libs/format';
 import PageControls from '../components/PageControls';
 
-const VictimGrid = (props: any) => {
+const VictimGrid = async (props: any) => {
+    //information about user (I really need to change my naming style (this is for highlighted page colour))
+    const victimData = await fetchVictimData();
+
     //offset because array index starts at 0
     const page = props.page - 1;
-    const max = 3; //max amount of victims per page
+    const max = 1; //max amount of victims per page
     const start = Number(page) * max; //start index
     const end = start + max; //end index
 
@@ -134,7 +138,7 @@ const VictimGrid = (props: any) => {
             </div>
             {/* page controls */}
             <div className=' bottom-9 absolute'>
-                <PageControls totalPages={totalPages} />
+                <PageControls totalPages={totalPages} victimData={victimData} />
             </div>
         </div>
     );
