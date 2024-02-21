@@ -1,8 +1,20 @@
+import { Metadata } from 'next';
 import connect from '@/libs/mongo';
 import Victim from '@/schemas/victims';
 import Search from '../components/Search';
 import VictimGrid from '../components/VictimGrid';
 import PopularTags from '../components/PopularTags';
+
+export const metadata: Metadata = {
+    title: 'Bosyuu - Profile',
+    description: 'Discord friend bulletin board',
+    keywords: [
+        'Discord',
+        'Discord friends',
+        'Discord bulletin board',
+        'Discord friend board',
+    ],
+};
 
 export interface victim {
     userid: string;

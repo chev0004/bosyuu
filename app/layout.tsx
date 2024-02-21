@@ -10,7 +10,7 @@ import NextTopLoader from 'nextjs-toploader';
 const rokkitt = Rokkitt({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Bosyuu - Board',
+    title: 'Bosyuu',
     description: 'Discord friend bulletin board',
     keywords: [
         'Discord',
