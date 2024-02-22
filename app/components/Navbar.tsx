@@ -10,6 +10,16 @@ const Navbar = (props: any) => {
     if (props.icon) {
         return (
             <nav className='bg-darkMain h-16 relative flex items-center'>
+                {/* logo */}
+                <a href='/' className='absolute left-4'>
+                    <Image
+                        src='/logo.png'
+                        alt='bosyuu logo'
+                        width={140}
+                        height={140}
+                    />
+                </a>
+
                 <div className='w-32 flex justify-around absolute right-4'>
                     <button
                         onClick={() =>
