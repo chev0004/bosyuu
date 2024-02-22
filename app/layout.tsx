@@ -1,12 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { victim } from './board/page';
 import Navbar from './components/Navbar';
 import { Rokkitt } from 'next/font/google';
 import { AuthProvider } from './Providers';
 import { authOptions } from '@/authOptions';
 import { getServerSession } from 'next-auth';
 import NextTopLoader from 'nextjs-toploader';
+import { fetchVictimData } from '@/libs/getVictimData';
 
 const rokkitt = Rokkitt({ subsets: ['latin'] });
 
@@ -19,23 +19,6 @@ export const metadata: Metadata = {
         'Discord bulletin board',
         'Discord friend board',
     ],
-};
-
-let victimData: victim;
-
-const getVictim = async () => {
-    const session = await getServerSession(authOptions);
-    const res = await fetch(
-        `https://bosyuu.netlify.app/api/victims/${session?.user?.profile.id}`
-    );
-    victimData = (await res?.json()).victim;
-};
-
-export const fetchVictimData = async () => {
-    if (!victimData) {
-        await getVictim();
-    }
-    return victimData;
 };
 
 const RootLayout = async ({

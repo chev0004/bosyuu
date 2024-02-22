@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { victim } from '../board/page';
-import { fetchVictimData } from '../layout';
 import { formatTimestamp } from '@/libs/format';
 import PageControls from '../components/PageControls';
+import { fetchVictimData } from '@/libs/getVictimData';
 
 const VictimGrid = async (props: any) => {
     //information about user (I really need to change my naming style (this is for highlighted page colour))

@@ -32,8 +32,6 @@ const PageControls = async (props: {
         ? (colour = 'bg-[#f9a8d5]')
         : (colour = 'bg-[#707070]');
 
-    console.log(colour);
-
     return (
         <div className='flex justify-center text-white space-x-2 w-fit'>
             <button
