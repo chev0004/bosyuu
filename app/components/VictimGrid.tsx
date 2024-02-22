@@ -137,9 +137,14 @@ const VictimGrid = async (props: any) => {
                 ))}
             </div>
             {/* page controls */}
-            <div className=' bottom-9 absolute'>
-                <PageControls totalPages={totalPages} victimData={victimData} />
-            </div>
+            {totalPages && (
+                <div className=' bottom-9 absolute'>
+                    <PageControls
+                        totalPages={totalPages}
+                        victimData={victimData}
+                    />
+                </div>
+            )}
         </div>
     );
 };
