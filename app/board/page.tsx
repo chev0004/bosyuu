@@ -6,7 +6,7 @@ import VictimGrid from '../components/VictimGrid';
 import PopularTags from '../components/PopularTags';
 
 export const metadata: Metadata = {
-    title: 'Bosyuu - Profile',
+    title: 'Bosyuu - Board',
     description: 'Discord friend bulletin board',
     keywords: [
         'Discord',

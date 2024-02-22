@@ -11,15 +11,38 @@ const PageControls = (props: { totalPages: number; victimData: victim }) => {
     const page = searchParams?.get('page') ?? '1';
     const lastPage = Boolean(parseInt(page) === props.totalPages);
     const firstPage = Boolean(parseInt(page) === 1);
+    const hasParams = Boolean(searchParams?.toString());
+
+    const handleParams = (p: number) => {
+        if (!hasParams) {
+            router.push(`/board?page=${p}`, {
+                scroll: false,
+            });
+        } else {
+            if (searchParams?.has('page')) {
+                router.push(
+                    `/board?${searchParams?.toString().slice(0, -1)}${p}`,
+                    {
+                        scroll: false,
+                    }
+                );
+            } else {
+                console.log(searchParams?.toString());
+                router.push(`/board?${searchParams?.toString()}&page=${p}`, {
+                    scroll: false,
+                });
+            }
+        }
+    };
 
     const handleNext = () => {
         const nextPage = parseInt(page) + 1;
-        router.push(`?page=${nextPage}`, { scroll: false });
+        handleParams(nextPage);
     };
 
     const handlePrev = () => {
         const previousPage = parseInt(page) - 1;
-        router.push(`?page=${previousPage}`, { scroll: false });
+        handleParams(previousPage);
     };
 
     let colour: string = 'bg-[#707070]';
@@ -28,8 +51,6 @@ const PageControls = (props: { totalPages: number; victimData: victim }) => {
         : props.victimData?.gender === '2'
         ? (colour = 'bg-[#f9a8d5]')
         : (colour = 'bg-[#707070]');
-
-    console.log(props.victimData.gender)
 
     return (
         <div className='flex justify-center text-white space-x-2 w-fit'>
@@ -55,11 +76,9 @@ const PageControls = (props: { totalPages: number; victimData: victim }) => {
                         buttons.push(
                             <div className='relative' key={p}>
                                 <button
-                                    onClick={() =>
-                                        router.push(`?page=${p}`, {
-                                            scroll: false,
-                                        })
-                                    }
+                                    onClick={() => {
+                                        handleParams(p);
+                                    }}
                                     className='hover:bg-[rgba(255,255,255,0.1)] rounded-md p-2 size-10'
                                 >
                                     {p}
