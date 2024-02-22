@@ -29,6 +29,8 @@ const PageControls = (props: { totalPages: number; victimData: victim }) => {
         ? (colour = 'bg-[#f9a8d5]')
         : (colour = 'bg-[#707070]');
 
+    console.log(props.victimData.gender)
+
     return (
         <div className='flex justify-center text-white space-x-2 w-fit'>
             <button

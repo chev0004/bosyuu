@@ -6,7 +6,7 @@ import { AuthProvider } from './Providers';
 import { authOptions } from '@/authOptions';
 import { getServerSession } from 'next-auth';
 import NextTopLoader from 'nextjs-toploader';
-import { fetchVictimData } from '@/libs/getVictimData';
+import { fetchVictimData } from './board/page';
 
 const rokkitt = Rokkitt({ subsets: ['latin'] });
 
