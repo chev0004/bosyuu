@@ -27,7 +27,6 @@ const PageControls = (props: { totalPages: number; victimData: victim }) => {
                     }
                 );
             } else {
-                console.log(searchParams?.toString());
                 router.push(`/board?${searchParams?.toString()}&page=${p}`, {
                     scroll: false,
                 });
@@ -72,24 +71,123 @@ const PageControls = (props: { totalPages: number; victimData: victim }) => {
             <div className='flex space-x-2'>
                 {(() => {
                     const buttons = [];
-                    for (let p = 1; p <= props.totalPages; p++) {
+                    if (parseInt(page) <= 4) {
+                        let limit: number;
+                        props.totalPages > 4
+                            ? (limit = 4)
+                            : (limit = props.totalPages);
+                        for (let p = 1; p <= limit; p++) {
+                            buttons.push(
+                                <div className='relative' key={p}>
+                                    <button
+                                        onClick={() => {
+                                            handleParams(p);
+                                        }}
+                                        className='hover:bg-[rgba(255,255,255,0.1)] rounded-md p-2 size-10'
+                                    >
+                                        {p}
+                                    </button>
+                                    {parseInt(page) == p && (
+                                        <div
+                                            className={`w-full ${colour} h-[2px] absolute bottom-0`}
+                                        ></div>
+                                    )}
+                                </div>
+                            );
+                        }
+                        props.totalPages > 4 &&
+                            buttons.push(
+                                <div
+                                    className='relative space-x-2'
+                                    key={props.totalPages}
+                                >
+                                    <span>....</span>
+                                    <button
+                                        onClick={() => {
+                                            handleParams(props.totalPages);
+                                        }}
+                                        className='hover:bg-[rgba(255,255,255,0.1)] rounded-md p-2 size-10'
+                                    >
+                                        {props.totalPages}
+                                    </button>
+                                    {parseInt(page) == props.totalPages && (
+                                        <div
+                                            className={`w-full ${colour} h-[2px] absolute bottom-0`}
+                                        ></div>
+                                    )}
+                                </div>
+                            );
+                    } else {
                         buttons.push(
-                            <div className='relative' key={p}>
+                            <div className='relative space-x-2' key={1}>
                                 <button
                                     onClick={() => {
-                                        handleParams(p);
+                                        handleParams(1);
                                     }}
                                     className='hover:bg-[rgba(255,255,255,0.1)] rounded-md p-2 size-10'
                                 >
-                                    {p}
+                                    {1}
                                 </button>
-                                {parseInt(page) == p && (
+                                {parseInt(page) == 1 && (
                                     <div
                                         className={`w-full ${colour} h-[2px] absolute bottom-0`}
                                     ></div>
                                 )}
+                                <span>....</span>
                             </div>
                         );
+                        let start: number;
+                        let end: number;
+
+                        props.totalPages - 3 > parseInt(page)
+                            ? (start = parseInt(page))
+                            : (start = props.totalPages - 3);
+
+                        props.totalPages - 3 > parseInt(page)
+                            ? (end = parseInt(page) + 3)
+                            : (end = props.totalPages);
+
+                        for (let p = start; p <= end; p++) {
+                            buttons.push(
+                                <div className='relative' key={p}>
+                                    <button
+                                        onClick={() => {
+                                            handleParams(p);
+                                        }}
+                                        className='hover:bg-[rgba(255,255,255,0.1)] rounded-md p-2 size-10'
+                                    >
+                                        {p}
+                                    </button>
+                                    {parseInt(page) == p && (
+                                        <div
+                                            className={`w-full ${colour} h-[2px] absolute bottom-0`}
+                                        ></div>
+                                    )}
+                                </div>
+                            );
+                        }
+                        props.totalPages > parseInt(page) + 3 &&
+                            buttons.push(
+                                <div
+                                    className='relative space-x-2'
+                                    key={props.totalPages}
+                                >
+                                    <span>....</span>
+                                    <button
+                                        onClick={() => {
+                                            handleParams(props.totalPages);
+                                        }}
+                                        className='hover:bg-[rgba(255,255,255,0.1)] rounded-md p-2 size-10'
+                                    >
+                                        {props.totalPages}
+                                    </button>
+                                    {parseInt(page) == props.totalPages && (
+                                        <div
+                                            className={`w-full ${colour} h-[2px] absolute bottom-0`}
+                                        ></div>
+                                    )}
+                                </div>
+                            );
                     }
                     return buttons;
                 })()}
