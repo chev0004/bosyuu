@@ -13,7 +13,7 @@ const Navbar = (props: any) => {
                 {/* logo */}
                 <a href='/' className='absolute left-4'>
                     <Image
-                        src='/logo.png'
+                        src='/bosyuu.svg'
                         alt='bosyuu logo'
                         width={140}
                         height={140}

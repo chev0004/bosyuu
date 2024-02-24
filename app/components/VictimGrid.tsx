@@ -9,7 +9,7 @@ const VictimGrid = async (props: any) => {
 
     //offset because array index starts at 0
     const page = props.page - 1;
-    const max = 1; //max amount of victims per page
+    const max = 24; //max amount of victims per page
     const start = Number(page) * max; //start index
     const end = start + max; //end index
 
