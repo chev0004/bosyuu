@@ -20,6 +20,7 @@ const VictimGrid = async (props: any) => {
 
     //calculate max amount of pages
     const totalPages = Math.ceil(sortedVictims.length / max);
+    console.log(Boolean(totalPages));
 
     //slice victims (display limited but still sorted data)
     sortedVictims = sortedVictims.slice(start, end);
@@ -136,8 +137,10 @@ const VictimGrid = async (props: any) => {
                 ))}
             </div>
             {/* page controls */}
-            {totalPages && (
-                <div className=' bottom-9 absolute'>
+
+            {/* add page controls only if there's one or more */}
+            {totalPages >= 1 && (
+                <div className='bottom-9 absolute'>
                     <PageControls
                         totalPages={totalPages}
                         victimData={victimData}
