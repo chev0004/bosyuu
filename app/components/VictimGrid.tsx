@@ -20,7 +20,6 @@ const VictimGrid = async (props: any) => {
 
     //calculate max amount of pages
     const totalPages = Math.ceil(sortedVictims.length / max);
-    console.log(Boolean(totalPages));
 
     //slice victims (display limited but still sorted data)
     sortedVictims = sortedVictims.slice(start, end);
