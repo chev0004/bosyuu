@@ -37,7 +37,7 @@ export const authOptions = {
                     description: '',
                     icon: profile.image_url,
                     valid: false,
-                    timestamp: Date.now(),
+                    // timestamp: 0,
                     locale: profile.locale,
                     gender: '3',
                     cooldown: Date.now(),

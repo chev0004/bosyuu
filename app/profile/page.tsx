@@ -48,6 +48,7 @@ const profile = async () => {
         if (Date.now() - victimData.cooldown < 43200000) return;
 
         await Victim.findByIdAndUpdate(victimData._id, {
+            valid: true,
             timestamp: Date.now(),
             cooldown: Date.now(),
         });

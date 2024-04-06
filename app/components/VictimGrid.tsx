@@ -12,11 +12,13 @@ const VictimGrid = async (props: any) => {
     const start = Number(page) * max; //start index
     const end = start + max; //end index
 
-    //sort victims by most recent timestamp
-    let sortedVictims = props.victims.sort(
-        (a: { timestamp: number }, b: { timestamp: number }) =>
-            b.timestamp - a.timestamp
-    );
+    //filter through valid victims then sort by most recent timestamp
+    let sortedVictims = props.victims
+        .filter((victim: victim) => victim.valid === true)
+        .sort(
+            (a: { timestamp: number }, b: { timestamp: number }) =>
+                b.timestamp - a.timestamp
+        );
 
     //calculate max amount of pages
     const totalPages = Math.ceil(sortedVictims.length / max);
