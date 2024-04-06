@@ -7,8 +7,7 @@ const VictimGrid = async (props: any) => {
     //information about user (I really need to change my naming style (this is for highlighted page colour))
     const victimData = await fetchVictimData();
 
-    //offset because array index starts at 0
-    const page = props.page - 1;
+    const page = props.page - 1; //starting page, offset because array index starts at 0
     const max = 24; //max amount of victims per page
     const start = Number(page) * max; //start index
     const end = start + max; //end index

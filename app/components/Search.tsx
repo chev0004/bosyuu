@@ -12,9 +12,11 @@ const Search = () => {
             event.preventDefault();
             const query = event.target.value;
 
+            console.log(encodeURIComponent(query));
+
             !query
                 ? router.push('/board')
-                : router.push(`/board?search=${query}`);
+                : router.push(`/board?search=${encodeURIComponent(query)}`);
         }
     };
     return (
