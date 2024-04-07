@@ -28,9 +28,9 @@ const Profile = (props: any) => {
 
     //state variables
     const [error, setError] = useState('');
-    const [tags, setTags] = useState(victim.tags || []);
-    const [gender, setGender] = useState(victim.gender || '3');
-    const [description, setDescription] = useState(victim.description || '');
+    const [tags, setTags] = useState(victim?.tags || []);
+    const [gender, setGender] = useState(victim?.gender || '3');
+    const [description, setDescription] = useState(victim?.description || '');
 
     //tag addition handler
     useEffect(() => {
@@ -154,7 +154,7 @@ const Profile = (props: any) => {
     //bump states
     const [bumping, setBumping] = useState(false);
     const [bumpPopup, setBumpPopup] = useState(false);
-    const [bumpCooldown, setBumpCooldown] = useState(victim.cooldown);
+    const [bumpCooldown, setBumpCooldown] = useState(victim?.cooldown);
     const [remainingTime, setRemainingTime] = useState(
         calculateRemainingTime(bumpCooldown)
     );
@@ -183,7 +183,7 @@ const Profile = (props: any) => {
         event.preventDefault();
 
         //check if the user clicked too soon
-        if (Date.now() - victim.cooldown < 43200000) {
+        if (Date.now() - victim?.cooldown < 43200000) {
             return setError('You must wait 12 hours before bumping again.');
         }
 
@@ -221,7 +221,7 @@ const Profile = (props: any) => {
         <div className='flex items-center justify-center py-20 px-11 gap-8'>
             {/* profile preview */}
             <div
-                key={victim.userid}
+                key={victim?.userid}
                 className='bg-darkMain rounded-md text-white overflow-hidden relative h-fit w-[400px] hidden lg:block'
             >
                 {/* gender banner */}
@@ -238,7 +238,7 @@ const Profile = (props: any) => {
                 {/* icon */}
                 <div className='bg-darkMain w-[74px] h-[74px] flex items-center justify-center rounded-full top-6 left-2 absolute'>
                     <Image
-                        src={victim.icon}
+                        src={victim?.icon}
                         alt='icon'
                         width={64}
                         height={64}
@@ -253,11 +253,11 @@ const Profile = (props: any) => {
                     <div className='h-80 bg-darkerMain rounded-md p-3'>
                         {/* global name */}
                         <p className='text-white font-semibold font-sans text-lg'>
-                            {victim.displayname}
+                            {victim?.displayname}
                         </p>
                         {/* username */}
                         <p className='text-white font-sans font-medium text-[0.7rem] rounded-full'>
-                            {victim.username}
+                            {victim?.username}
                         </p>
                         {/* divider line */}
                         <div className='mt-2 mb-2 bg-darkMain w-12/12 h-[2px]'></div>

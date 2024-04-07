@@ -4,7 +4,10 @@ import { victim } from '../board/page';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
-const PageControls = (props: { totalPages: number; victimData: victim }) => {
+const PageControls = (props: {
+    totalPages: number;
+    victimData: victim | null;
+}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 

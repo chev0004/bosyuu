@@ -18,11 +18,8 @@ interface FormData {
 
 const profile = async () => {
     const session = await getServerSession(authOptions);
-
-    const res = await fetch(
-        `https://bosyuu.netlify.app/api/victims/${session.user.profile.id}`
-    );
-    const victimData = (await res.json()).victim;
+    const victimData = session?.user?.profile;
+    console.log(session, 4);
 
     const updateProfile = async (formData: FormData) => {
         'use server';
@@ -34,7 +31,7 @@ const profile = async () => {
         } = formData;
 
         await connect();
-        await Victim.findByIdAndUpdate(victimData._id, {
+        await Victim.findByIdAndUpdate(victimData?._id, {
             description,
             tags,
             gender,
@@ -45,9 +42,9 @@ const profile = async () => {
         'use server';
         await connect();
 
-        if (Date.now() - victimData.cooldown < 43200000) return;
+        if (Date.now() - victimData?.cooldown < 43200000) return;
 
-        await Victim.findByIdAndUpdate(victimData._id, {
+        await Victim.findByIdAndUpdate(victimData?._id, {
             valid: true,
             timestamp: Date.now(),
             cooldown: Date.now(),

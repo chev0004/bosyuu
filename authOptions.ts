@@ -1,6 +1,34 @@
 import jwt from 'jsonwebtoken';
 
 import DiscordProvider from 'next-auth/providers/discord';
+import { victim } from './app/board/page';
+import { getServerSession } from 'next-auth';
+
+// const getVictim = async () => {
+//     const session = await getServerSession(authOptions);
+//     if (!session) return null;
+//     const res = await fetch(
+//         `https://bosyuu.netlify.app/api/victims/${session?.user?.profile?.id}`
+//     );
+//     victimData = (await res?.json()).victim;
+// };
+
+export const fetchVictimData = async () => {
+    // if (!victimData) {
+    //     await getVictim();
+    // }
+
+    let victimData: victim | null;
+
+    const session = await getServerSession(authOptions);
+    if (!session) return null;
+    const res = await fetch(
+        `https://bosyuu.netlify.app/api/victims/${session?.user?.profile?.id}`
+    );
+    victimData = (await res?.json()).victim;
+
+    return victimData;
+};
 
 export const authOptions = {
     providers: [
@@ -58,7 +86,11 @@ export const authOptions = {
         },
         async session({ session, token, user }: any) {
             //take profile object from token
-            session.user.profile = token.profile;
+            session.user.profile = await fetchVictimData();
+            console.log(session, 2);
+
+            // console.log(victimData);
+
             return session;
         },
     },
