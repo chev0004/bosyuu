@@ -22,6 +22,7 @@ const config: Config = {
                 lightMain: '#707070',
                 darkerMain: '#090909',
                 discordBlue: '#5964f2',
+                discordYellow: '#f0b133',
             },
             dropShadow: {
                 glow: [

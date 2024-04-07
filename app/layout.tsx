@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import Navbar from './components/Navbar';
+import RegisterPrompt from './components/RegisterPrompt';
 import { Rokkitt } from 'next/font/google';
 import { AuthProvider } from './Providers';
 import { authOptions } from '@/authOptions';
@@ -40,6 +41,7 @@ const RootLayout = async ({
                 <body className={`${rokkitt.className} bg-back`}>
                     <NextTopLoader color={colour} showSpinner={false} />
                     <Navbar icon={session?.user?.image} />
+                    <RegisterPrompt victimData={victimData} />
                     {children}
                 </body>
             </AuthProvider>

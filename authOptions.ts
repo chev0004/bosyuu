@@ -40,7 +40,7 @@ export const authOptions = {
                     // timestamp: 0,
                     locale: profile.locale,
                     gender: '3',
-                    cooldown: Date.now(),
+                    // cooldown: 0
                 }),
             });
 
