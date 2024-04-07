@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { RxCross1 } from 'react-icons/rx';
 
 const RegisterPrompt = (props: any) => {
-    const [visible, setVisible] = useState(props?.victimData?.valid === false);
     if (props.victimData && props.victimData.valid === false) {
+        const [visible, setVisible] = useState(
+            props.victimData.valid === false
+        );
         return (
             <div
                 className={`flex justify-center ${

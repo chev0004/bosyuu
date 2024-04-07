@@ -41,7 +41,7 @@ const RootLayout = async ({
                 <body className={`${rokkitt.className} bg-back`}>
                     <NextTopLoader color={colour} showSpinner={false} />
                     <Navbar icon={session?.user?.image} />
-                    <RegisterPrompt victimData={victimData} />
+                    {session && <RegisterPrompt victimData={victimData} />}
                     {children}
                 </body>
             </AuthProvider>
