@@ -12,7 +12,7 @@
     scrollbar-width: thin;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 4px;
     height: 0px;
 }
@@ -24,4 +24,4 @@
 ::-webkit-scrollbar-thumb {
     background-color: #5a5a5a;
     border-radius: 16px;
-}
+} */
