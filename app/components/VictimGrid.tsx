@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { victim } from '../board/page';
 import { formatTimestamp } from '@/libs/format';
-import { fetchVictimData } from '@/authOptions';
+import { fetchVictimData } from '@/libs/getVictim';
 import PageControls from '../components/PageControls';
 
 const VictimGrid = async (props: any) => {

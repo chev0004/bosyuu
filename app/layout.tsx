@@ -26,16 +26,15 @@ const RootLayout = async ({
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
-    let colour: string = '#707070';
     const session = await getServerSession(authOptions);
+    let colour: string = '#707070';
     const victimGender = session?.user?.profile?.gender;
     victimGender == '1'
         ? (colour = '#c1d5e9')
         : victimGender === '2'
         ? (colour = '#f9a8d5')
         : (colour = '#707070');
-    console.log(session, 3);
-    return (
+    return ( 
         <html lang='en'>
             <AuthProvider>
                 <body className={`${rokkitt.className} bg-back`}>

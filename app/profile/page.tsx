@@ -4,6 +4,7 @@ import Victim from '@/schemas/victims';
 import Profile from '../components/Profile';
 import { authOptions } from '@/authOptions';
 import { getServerSession } from 'next-auth';
+import { fetchVictimData } from '@/libs/getVictim';
 
 export const metadata: Metadata = {
     title: 'Bosyuu - Profile',
@@ -18,8 +19,7 @@ interface FormData {
 
 const profile = async () => {
     const session = await getServerSession(authOptions);
-    const victimData = session?.user?.profile;
-    console.log(session, 4);
+    const victimData = await fetchVictimData();
 
     const updateProfile = async (formData: FormData) => {
         'use server';

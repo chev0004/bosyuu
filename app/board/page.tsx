@@ -29,9 +29,6 @@ export interface victim {
     gender: string;
 }
 
-import { authOptions } from '@/authOptions';
-import { getServerSession } from 'next-auth';
-
 const Board = async ({
     searchParams,
 }: {

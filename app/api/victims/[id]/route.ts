@@ -6,7 +6,7 @@ export async function GET(req: Request, { params }: any) {
     try {
         const { id } = params;
         const victim = await Victim.findOne({ userid: id });
-        await connect();
+        // await connect();
         return NextResponse.json({ victim }, { status: 200 });
     } catch (error) {
         console.log('something went wrong (idk what it is) ', error);
