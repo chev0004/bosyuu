@@ -49,7 +49,7 @@ const Navbar = (props: any) => {
         );
     }
 
-    //if not logged in a
+    //if not logged in
     return (
         <nav className='bg-darkMain h-16 relative flex items-center'>
             {/* logo */}
