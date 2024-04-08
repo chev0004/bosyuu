@@ -29,7 +29,7 @@ const VictimGrid = async (props: any) => {
     return (
         <div className='flex justify-center py-24 relative'>
             {/* victim grid */}
-            <div className='gap-8 grid grid-cols-1 w-[1400px] lg:grid-cols-3 md:grid-cols-2 relative px-20'>
+            <div className='gap-8 grid grid-cols-1 w-[1400px] lg:grid-cols-3 md:grid-cols-2 relative px-6'>
                 {sortedVictims.map((victim: victim) => (
                     // actual cells
                     <div
