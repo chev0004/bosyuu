@@ -79,7 +79,7 @@ const VictimGrid = async (props: any) => {
                                 {/* divider line */}
                                 <div className='mt-2 mb-2 bg-darkMain w-12/12 h-[2px]'></div>
                                 {/* scrollable container for tags and description */}
-                                <div className='h-56 overflow-scroll'>
+                                <div className='h-56 overflow-y-scroll' id='jailcell'>
                                     {/* shrunken div for scroll space */}
                                     <div className='w-[94%]'>
                                         {victim.tags.length !== 0 && (
