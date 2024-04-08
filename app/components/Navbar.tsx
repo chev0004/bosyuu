@@ -25,7 +25,7 @@ const Navbar = (props: any) => {
                     <button
                         onClick={() =>
                             signOut({
-                                callbackUrl: 'https://bosyuu.vercel.app/board',
+                                callbackUrl: 'https://bosyuu.vercel.app/board', //
                             })
                         }
                         className={`text-red-500 rokkitt ${rokkitt.className}`}
@@ -49,7 +49,7 @@ const Navbar = (props: any) => {
         );
     }
 
-    //if not logged in
+    //if not logged in a
     return (
         <nav className='bg-darkMain h-16 relative flex items-center'>
             {/* logo */}
