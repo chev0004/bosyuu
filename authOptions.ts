@@ -22,7 +22,7 @@ export const authOptions = {
                 }
             );
             //create user through post request
-            const res = await fetch('https://bosyuu.netlify.app/api/victims', {
+            const res = await fetch('https://bosyuu.vercel.app/api/victims', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

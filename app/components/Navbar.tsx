@@ -25,7 +25,7 @@ const Navbar = (props: any) => {
                     <button
                         onClick={() =>
                             signOut({
-                                callbackUrl: 'https://bosyuu.netlify.app/board',
+                                callbackUrl: 'https://bosyuu.vercel.app/board',
                             })
                         }
                         className={`text-red-500 rokkitt ${rokkitt.className}`}
@@ -66,7 +66,7 @@ const Navbar = (props: any) => {
                 <button
                     onClick={() =>
                         signIn('discord', {
-                            callbackUrl: 'https://bosyuu.netlify.app/profile',
+                            callbackUrl: 'https://bosyuu.vercel.app/profile',
                         })
                     }
                     className={`text-white ${rokkitt.className}`}
