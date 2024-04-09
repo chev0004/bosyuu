@@ -18,7 +18,6 @@ interface FormData {
 }
 
 const profile = async () => {
-    const session = await getServerSession(authOptions);
     const victimData = await fetchVictimData();
 
     const updateProfile = async (formData: FormData) => {
