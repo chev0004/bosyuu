@@ -61,7 +61,13 @@ const VictimGrid = async (props: any) => {
                         {/* tags and description */}
                         <div className='h-fit bg-darkMain px-4 pb-4'>
                             {/* gap (was thinking of adding nitro badge here) */}
-                            <div className='h-10 my-2 flex items-center justify-end'>
+                            <div className='h-10 my-2 flex items-center justify-end gap-1'>
+                                {/* alt discriminator */}
+                                {victim.username == 'hiyorishiina' && (
+                                    <p className='bg-darkerMain rounded-lg p-1 font-sans text-[0.8rem] font-light'>
+                                        ᴀʟᴛ
+                                    </p>
+                                )}
                                 {/* timestamp */}
                                 <p className='bg-darkerMain rounded-lg p-1 font-sans text-[0.8rem] font-light'>
                                     {formatTimestamp(victim.timestamp)}

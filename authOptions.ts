@@ -39,6 +39,7 @@ export const authOptions = {
                     valid: false,
                     locale: profile.locale,
                     gender: '3',
+                    alt: false,
                 }),
             });
 

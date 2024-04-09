@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 };
 
 export interface victim {
+    alt: boolean;
     userid: string;
     displayname: string;
     username: string;
