@@ -56,6 +56,12 @@ const VictimGrid = async (props: any) => {
                                 height={64}
                                 className='rounded-full'
                             />
+                            <div className='opacity-0 hover:opacity-100 absolute transition-opacity duration-100 flex items-center justify-center hover:cursor-pointer'>
+                                <p className='text-white absolute text-[11px] text-center z-20 font-semibold'>
+                                    VIEW PROFILE
+                                </p>
+                                <div className='opacity-40 bg-black w-[64px] h-[64px] rounded-full'></div>
+                            </div>
                         </div>
 
                         {/* tags and description */}
@@ -85,7 +91,10 @@ const VictimGrid = async (props: any) => {
                                 {/* divider line */}
                                 <div className='mt-2 mb-2 bg-darkMain w-12/12 h-[2px]'></div>
                                 {/* scrollable container for tags and description */}
-                                <div className='h-56 overflow-y-scroll' id='jailcell'>
+                                <div
+                                    className='h-56 overflow-y-scroll'
+                                    id='jailcell'
+                                >
                                     {/* shrunken div for scroll space */}
                                     <div className='w-[94%]'>
                                         {victim.tags.length !== 0 && (
