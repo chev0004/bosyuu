@@ -1,7 +1,7 @@
 'use client';
 
 import { victim } from '../board/page';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams, notFound } from 'next/navigation';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
 const PageControls = (props: {
@@ -36,6 +36,8 @@ const PageControls = (props: {
             }
         }
     };
+
+    if (parseInt(page) > props.totalPages) return notFound();
 
     const handleNext = () => {
         const nextPage = parseInt(page) + 1;
