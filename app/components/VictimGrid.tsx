@@ -3,6 +3,7 @@ import { victim } from '../board/page';
 import { formatTimestamp } from '@/libs/format';
 import { fetchVictimData } from '@/libs/getVictim';
 import PageControls from '../components/PageControls';
+import VictimProfile from './VictimProfile';
 
 const VictimGrid = async (props: any) => {
     //information about user (I really need to change my naming style (this is for highlighted page colour))
@@ -26,6 +27,7 @@ const VictimGrid = async (props: any) => {
 
     //slice victims (display limited but still sorted data)
     sortedVictims = sortedVictims.slice(start, end);
+
     return (
         <div className='flex justify-center py-24 relative'>
             {/* victim grid */}
@@ -56,12 +58,9 @@ const VictimGrid = async (props: any) => {
                                 height={64}
                                 className='rounded-full'
                             />
-                            <div className='opacity-0 hover:opacity-100 absolute transition-opacity duration-100 flex items-center justify-center hover:cursor-pointer'>
-                                <p className='text-white absolute text-[11px] text-center z-20 font-semibold'>
-                                    VIEW PROFILE
-                                </p>
-                                <div className='opacity-40 bg-black w-[64px] h-[64px] rounded-full'></div>
-                            </div>
+
+                            {/* view profile hover effect */}
+                            <VictimProfile />
                         </div>
 
                         {/* tags and description */}
