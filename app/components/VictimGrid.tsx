@@ -60,7 +60,7 @@ const VictimGrid = async (props: any) => {
                             />
 
                             {/* view profile hover effect */}
-                            <VictimProfile />
+                            <VictimProfile victim={JSON.parse(JSON.stringify(victim))} />
                         </div>
 
                         {/* tags and description */}
