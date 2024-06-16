@@ -5,8 +5,10 @@ import Image from 'next/image';
 
 const ImageWithFallback = (props: {
 	[x: string]: any;
-	src: any;
-	fallbackSrc: any;
+	src: string;
+	fallbackSrc: string;
+	width?: number;
+	height?: number;
 }) => {
 	const { src, fallbackSrc, ...rest } = props;
 	const [imgSrc, setImgSrc] = useState(src);
@@ -19,8 +21,8 @@ const ImageWithFallback = (props: {
 				setImgSrc(fallbackSrc);
 			}}
 			alt="icon"
-			width={64}
-			height={64}
+			width={props.width}
+			height={props.height}
 			className="rounded-full"
 		/>
 	);

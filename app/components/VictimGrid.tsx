@@ -55,6 +55,8 @@ const VictimGrid = async (props: any) => {
 							<ImageWithFallback
 								src={victim.icon}
 								fallbackSrc={`/default.png`}
+								width={64}
+								height={64}
 							/>
 
 							{/* view profile hover effect */}
