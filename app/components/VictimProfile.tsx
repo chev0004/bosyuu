@@ -31,10 +31,8 @@ const VictimProfile = ({ victim }: any) => {
 				{}
 				<div
 					key={victim.userid}
-					className={`w-[700px] h-[600px] bg-darkMain rounded-xl text-white overflow-hidden fixed z-50 inset-x-0 mx-auto inset-y-0 my-auto transition-all duration-200 ${
-						isVisible
-							? 'scale-100 opacity-100'
-							: 'scale-0 opacity-0'
+					className={`w-[700px] h-[600px] bg-darkMain rounded-xl text-white overflow-hidden fixed z-50 inset-x-0 mx-auto inset-y-0 my-auto transition-all duration-1000 ${
+						isVisible ? 'scale-100 opacity-100' : 'opacity-0'
 					}`}
 				>
 					{/* gender banner */}
