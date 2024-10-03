@@ -11,7 +11,7 @@ const VictimGrid = async (props: any) => {
 	const victimData = await fetchVictimData();
 
 	const page = props.page - 1; //starting page, offset because array index starts at 0
-	const max = 24; //max amount of victims per page
+	const max = 24; //max amount of victims per page, default 24
 	const start = Number(page) * max; //start index
 	const end = start + max; //end index
 
